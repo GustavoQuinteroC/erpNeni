@@ -182,5 +182,4 @@ Este proyecto está bajo la Licencia MIT - consulta el archivo [LICENSE](LICENSE
 ## 🌟 Mantente Conectado
 
 - **GitHub**: [https://github.com/GustavoQuinteroC/erpNeni](https://github.com/GustavoQuinteroC/erpNeni)
-- **Correo Electrónico**: gustavo@example.com
-- **Twitter**: [@gustavo_dev](https://twitter.com/gustavo_dev)
+- **Correo Electrónico**: gustavoquintero2000@outlook.com
