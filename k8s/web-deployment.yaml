@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      volumes:
+      - name: git-repo-volume
+        emptyDir: {}  # Volumen temporal para clonar el repositorio
+
+      initContainers:
+      - name: git-clone
+        image: alpine/git  # Imagen ligera que contiene Git
+        command:
+          - sh
+          - -c
+          - |
+            git clone https://github.com/GustavoQuinteroC/erpNeni.git /tmp/repo && \
+            ls -la /tmp/repo/gsventas-app && \  # Verifica los archivos dentro de gsventas-app
+            cp -r /tmp/repo/gsventas-app/. /repo
+        volumeMounts:
+        - name: git-repo-volume
+          mountPath: /repo  # Carpeta donde se colocarán los archivos específicos
+
+      - name: set-permissions
+        image: busybox  # Imagen ligera para ejecutar comandos sencillos
+        command:
+          - sh
+          - -c
+          - |
+            chown -R www-data:www-data /var/www/html && \
+            chmod -R 775 /var/www/html
+        volumeMounts:
+        - name: git-repo-volume
+          mountPath: /var/www/html  # Montamos el volumen donde se están copiando los archivos
+          
+      containers:
+      - name: web-container
+        image: gustavoquintero/web-image:v5  # Ahora usa la nueva imagen v5 desde Docker Hub
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: git-repo-volume
+          mountPath: /var/www/html  # Directorio donde el contenedor espera los archivos del sitio web
+

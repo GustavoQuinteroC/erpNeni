@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      volumes:
+      - name: git-repo-volume
+        emptyDir: {}  # Volumen temporal para clonar el repositorio
+
+      initContainers:
+      - name: git-clone
+        image: alpine/git  # Imagen ligera que contiene Git
+        command:
+          - sh
+          - -c
+          - |
+            git clone https://github.com/GustavoQuinteroC/tareasOnKubernetes.git /tmp/repo && \
+            cp -r /tmp/repo/k8s-tareas/web/www/tareas/* /repo  # Copia solo la subcarpeta deseada
+        volumeMounts:
+        - name: git-repo-volume
+          mountPath: /repo  # Carpeta donde se colocarán los archivos específicos
+
+      containers:
+      - name: web-container
+        image: gustavoquintero/web-image:v2  # Usa el nombre completo de la imagen en Docker Hub
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: git-repo-volume
+          mountPath: /var/www/html  # Directorio donde el contenedor espera los archivos del sitio web
