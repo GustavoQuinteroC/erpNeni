@@ -1,5 +1,5 @@
 
-# ERP Neni - Sistema de Planificación de Recursos Empresariales (ERP)
+# ERP Neni - Kubernetes
 
 ![ERP Neni Logo](https://img.icons8.com/ios/452/erp.png)
 
