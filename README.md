@@ -32,6 +32,7 @@
 - **Base de Datos**: MySQL
 - **Contenerización**: Docker
 - **Orquestación**: Kubernetes
+- **Conexión**: Cloudflared
 - **Imagen de Docker**: `gustavoquintero/web-image:v5`
 
 ---
