@@ -1,1 +1,6 @@
 
+
+# Secretos y dependencias (no se versionan)
+.env
+/vendor/
+/node_modules/
