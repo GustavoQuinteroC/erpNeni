@@ -49,3 +49,45 @@ jobs:
         with:
           name: composer-lock
           path: gsventas-app/composer.lock
+
+  navegador:
+    name: Playwright (pantallas en 390, 768 y 1366 px)
+    runs-on: ubuntu-latest
+    services:
+      mariadb:
+        image: mariadb:12
+        env:
+          MARIADB_DATABASE: erp_neni
+          MARIADB_USER: app_erp_neni
+          MARIADB_PASSWORD: solo-para-ci
+          MARIADB_RANDOM_ROOT_PASSWORD: '1'
+        ports: ['3306:3306']
+        options: --health-cmd="healthcheck.sh --connect --innodb_initialized" --health-interval=5s --health-retries=20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: mbstring, pdo_mysql, intl, bcmath
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: composer install --no-interaction --no-progress --prefer-dist
+      - name: Base MariaDB con la cuenta demo
+        run: |
+          cp .env.example .env
+          sed -i 's/^APP_ENV=.*/APP_ENV=local/; s/^APP_DEBUG=.*/APP_DEBUG=true/; s#^APP_URL=.*#APP_URL=http://127.0.0.1:8000#; s/^SESSION_SECURE_COOKIE=.*/SESSION_SECURE_COOKIE=false/' .env
+          sed -i 's/^DB_HOST=.*/DB_HOST=127.0.0.1/; s/^DB_PASSWORD=.*/DB_PASSWORD=solo-para-ci/' .env
+          php artisan key:generate
+          php artisan migrate --seed --force
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - run: npm run e2e
+      - name: Capturas de cada pantalla
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas
+          path: gsventas-app/test-results/
+          retention-days: 14

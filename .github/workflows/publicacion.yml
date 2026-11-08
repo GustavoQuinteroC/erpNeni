@@ -26,7 +26,7 @@ jobs:
         run: |
           mkdir -p ../salida
           zip -qr "../salida/erp-neni-${GITHUB_REF_NAME}.zip" . \
-            -x 'tests/*' 'phpunit.xml' '.env' 'storage/logs/*.log'
+            -x 'tests/*' 'e2e/*' 'node_modules/*' 'test-results/*' 'phpunit.xml' 'package.json' 'package-lock.json' 'playwright.config.js' '.env' 'storage/logs/*.log'
           cp composer.lock ../salida/composer.lock
       - name: Release
         working-directory: .

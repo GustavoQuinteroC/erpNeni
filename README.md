@@ -1,6 +1,6 @@
 # ERP Neni
 
-ERP de ventas, entregas e inventario para una tienda en línea que entrega en estaciones del Tren Ligero y del Macrobús de Guadalajara. Hecho con Laravel 13, AdminLTE y MariaDB, con manifiestos para Kubernetes.
+ERP de ventas, entregas e inventario para una tienda en línea que entrega en estaciones del Tren Ligero y del Macrobús de Guadalajara. Hecho con Laravel 13, AdminLTE 4 (Bootstrap 5.3) y MariaDB, con manifiestos para Kubernetes.
 
 **En vivo:** https://erpneni.gustavoquintero.dev/ (entra con la cuenta demo de solo lectura que aparece en la pantalla de acceso).
 
@@ -12,13 +12,15 @@ ERP de ventas, entregas e inventario para una tienda en línea que entrega en es
 - **Compras:** proveedores y recepciones de mercancía que suman existencia.
 - **Almacenes e inventario:** existencias por almacén y kardex de movimientos de entrada y salida.
 - **Comisiones** de vendedores y repartidores por rango de fechas.
-- **Tablero** con ventas por usuario, productos más vendidos del mes y montos de los últimos seis meses.
+- **Tablero** con ventas por usuario, productos más vendidos del mes y montos de los últimos seis meses (ApexCharts).
+- **Tema claro, oscuro o automático**, que se recuerda en el navegador.
 
 ## Decisiones de diseño
 
 - **Todo pide sesión.** Solo la pantalla de acceso es pública; no hay registro abierto ni recuperación de contraseña por correo.
 - **Cuenta demo de solo lectura:** un middleware deja consultar todo, pero rechaza cualquier alta, cambio o borrado de esa cuenta.
 - **Ventas y recepciones en una transacción:** la venta, su entrega, el movimiento de almacén y el ajuste de existencia se guardan juntos o no se guarda nada.
+- **Librerías por CDN con versión fija:** jQuery 3.7.1, DataTables 2.3 con FixedColumns, Select2 4.1, SweetAlert2 11, ApexCharts 5 y Leaflet 1.9. No hace falta npm para servir la app.
 - **Datos de ejemplo ficticios:** la semilla crea clientes, productos y operaciones inventados de los últimos cinco meses.
 
 ## Instalación
@@ -48,7 +50,10 @@ kubectl apply -f k8s/web-deployment.yaml -f k8s/web-service.yaml
 
 ## Pruebas
 
-GitHub Actions corre PHPUnit en PHP 8.4 y 8.5 contra MariaDB 12 en cada push: acceso a cada pantalla con y sin sesión, listados de DataTables, la cuenta demo de solo lectura, ventas y recepciones con su efecto en la existencia, y el comando para crear administradores.
+GitHub Actions corre en cada push:
+
+- PHPUnit en PHP 8.4 y 8.5 contra MariaDB 12: acceso a cada pantalla con y sin sesión, listados de DataTables, la cuenta demo de solo lectura, ventas y recepciones con su efecto en la existencia, y el comando para crear administradores.
+- Playwright: entra con la cuenta demo y recorre las 33 pantallas en 390, 768 y 1366 px; falla si hay errores en la consola, respuestas 4xx/5xx o desborde horizontal, y guarda una captura de cada pantalla.
 
 ## Licencia
 
