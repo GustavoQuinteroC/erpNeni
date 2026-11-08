@@ -2,12 +2,10 @@
 
 <div class="mb-3">
     <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text"><i class="{{ $icon }}"></i></span>
-        </div>
+        <span class="input-group-text"><i class="{{ $icon }}"></i></span>
         <input type="{{ $type }}" class="form-control" name="{{ $name }}" placeholder="{{ $label }}" value="{{ $value }}">
     </div>
     @error($name)
-    <span class="text-danger">{{ $message }}</span>
+    <span class="text-danger small">{{ $message }}</span>
     @enderror
 </div>

@@ -2,10 +2,8 @@
 
 <div class="mb-3">
     <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-transgender-alt"></i></span>
-        </div>
-        <select class="form-control" name="{{ $name }}">
+        <span class="input-group-text"><i class="bi bi-gender-ambiguous"></i></span>
+        <select class="form-select" name="{{ $name }}">
             <option value="">{{ $placeholder }}</option>
             @foreach ($options as $key => $value)
                 @php
@@ -16,6 +14,6 @@
         </select>
     </div>
     @error($name)
-    <span class="text-danger">{{ $message }}</span>
+    <span class="text-danger small">{{ $message }}</span>
     @enderror
 </div>

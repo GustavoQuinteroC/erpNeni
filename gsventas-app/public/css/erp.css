@@ -1,0 +1,31 @@
+/* Ajustes propios de erpNeni sobre AdminLTE 4. */
+
+/* Las celdas pueden ocupar varias líneas para que el listado quepa sin scroll. */
+table.dataTable td,
+table.dataTable th {
+    white-space: normal;
+    vertical-align: middle;
+}
+
+/* Los botones de Acciones no se parten en dos renglones. */
+table.dataTable td:last-child {
+    white-space: nowrap;
+}
+
+/* El buscador de Select2 usa el ancho completo de su grupo. */
+.input-group > .select2-container {
+    flex: 1 1 auto;
+    width: 1% !important;
+}
+
+/* Sugerencias del autocompletado: debajo del campo y con scroll si son muchas. */
+.erp-sugerencias {
+    max-height: 240px;
+    overflow-y: auto;
+    z-index: 1060;
+}
+
+/* El mapa de rutas ocupa el alto disponible. */
+#mapa {
+    min-height: 60vh;
+}
