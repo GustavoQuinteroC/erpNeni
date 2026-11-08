@@ -2,7 +2,7 @@
 
 ERP de ventas, entregas e inventario para una tienda en línea que entrega en estaciones del Tren Ligero y del Macrobús de Guadalajara. Hecho con Laravel 13, AdminLTE y MariaDB, con manifiestos para Kubernetes.
 
-**En vivo:** https://neni.gustavoquintero.dev/ (entra con la cuenta demo de solo lectura que aparece en la pantalla de acceso).
+**En vivo:** https://erpneni.gustavoquintero.dev/ (entra con la cuenta demo de solo lectura que aparece en la pantalla de acceso).
 
 ## Qué hace
 
