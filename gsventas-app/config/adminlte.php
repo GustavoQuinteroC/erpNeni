@@ -239,7 +239,10 @@ return [
         // null, the version installed by composer is detected and used, so
         // the assets served from the CDN always match the local ones.
 
-        'adminlte_version' => null,
+        // Fija la versión de AdminLTE del CDN: composer puede instalar una más nueva
+        // (por ejemplo 4.10.1) antes de que exista en npm, y el CDN respondería 404.
+
+        'adminlte_version' => '4.10.0',
 
         // Load the optional extended color palette (adminlte-colors.css). It
         // provides the .bg-*, .text-bg-*, .card-* and .callout-* classes for
