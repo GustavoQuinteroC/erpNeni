@@ -3,7 +3,7 @@
 @section('title', 'Principal')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Registro de cliente</h1>
+    <h1 class="m-0">Registro de cliente</h1>
 @stop
 
 @section('content')
@@ -26,20 +26,20 @@
                                 'name' => 'name',
                                 'label' => 'Nombre Completo',
                                 'placeholder' => 'Nombre Completo',
-                                'icon' => 'fas fa-user',
+                                'icon' => 'bi bi-person',
                             ])
                             @include('partials.input', [
                                 'name' => 'email',
                                 'type' => 'email',
                                 'label' => 'Correo (correo@ejemplo.com)',
                                 'placeholder' => 'Correo (correo@ejemplo.com)',
-                                'icon' => 'fas fa-at',
+                                'icon' => 'bi bi-at',
                             ])
                             @include('partials.input', [
                                 'name' => 'telefono',
                                 'label' => 'Telefono (10 Digitos)',
                                 'placeholder' => 'Telefono (10 Digitos)',
-                                'icon' => 'fas fa-phone',
+                                'icon' => 'bi bi-telephone',
                             ])
                             @include('partials.select2', [
                                 'name' => 'sexo',
@@ -59,7 +59,7 @@
                                 'name' => 'dias_entrega',
                                 'label' => 'Dias de entrega',
                                 'placeholder' => 'Dias de entrega',
-                                'icon' => 'fas fa-calendar-check',
+                                'icon' => 'bi bi-calendar-check',
                             ])
                             @include('partials.select2', [
                                 'name' => 'plataforma',
@@ -75,14 +75,14 @@
                                 'name' => 'rfc',
                                 'label' => 'RFC (Con homoclave)',
                                 'placeholder' => 'RFC (Con homoclave)',
-                                'icon' => 'fas fa-address-card',
+                                'icon' => 'bi bi-person-vcard',
                             ])
                             @include('partials.textarea', [
                                 'name' => 'domicilio',
                                 'label' => 'Ingrese el domicilio...',
                                 'placeholder' => 'Ingrese el domicilio...',
                                 'rows' => 3,
-                                'icon' => 'fas fa-home',
+                                'icon' => 'bi bi-house',
                             ])
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                                 'type' => 'submit',
                                 'label' => 'Guardar',
                                 'theme' => 'primary',
-                                'icon' => 'fas fa-save',
+                                'icon' => 'bi bi-floppy',
                             ])
                         </div>
                     </div>

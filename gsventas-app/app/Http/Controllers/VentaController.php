@@ -41,15 +41,15 @@ class VentaController extends Controller
                 ->addColumn('action', function ($row) {
                     $socioName = $row->socio;
                     $whatsappLink = 'https://wa.me/' . $row->telefono . '?text=' . urlencode('Hola ' . $socioName . ', soy la persona que te vendió el smartwatch por Facebook. El mensajero está intentando comunicarse contigo pero no ha tenido éxito. ¿Podrías responderle?');
-                    $btnWhatsapp = '<a href="' . $whatsappLink . '" class="btn btn-xs btn-default text-success mx-1 shadow" title="Send WhatsApp">
-                                <i class="fa fa-lg fa-fw fa-comments"></i>
+                    $btnWhatsapp = '<a href="' . $whatsappLink . '" class="btn btn-sm btn-outline-secondary text-success mx-1" title="Send WhatsApp">
+                                <i class="bi bi-whatsapp"></i>
                                 </a>';
                     $telLink = 'tel:' . $row->telefono;
-                    $btnPhone = '<a href="' . $telLink . '" class="btn btn-xs btn-default text-success mx-1 shadow" title="Call">
-                             <i class="fa fa-lg fa-fw fa-phone"></i>
+                    $btnPhone = '<a href="' . $telLink . '" class="btn btn-sm btn-outline-secondary text-success mx-1" title="Call">
+                             <i class="bi bi-telephone"></i>
                              </a>';
-                    $btnEdit = '<a href="' . route('ventas.show', $row->id) . '" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                                <i class="fa fa-lg fa-fw fa-pen"></i>
+                    $btnEdit = '<a href="' . route('ventas.show', $row->id) . '" class="btn btn-sm btn-outline-secondary text-primary mx-1" title="Edit">
+                                <i class="bi bi-pencil"></i>
                                 </a>';
                     return $btnWhatsapp . $btnPhone . $btnEdit;
                 })

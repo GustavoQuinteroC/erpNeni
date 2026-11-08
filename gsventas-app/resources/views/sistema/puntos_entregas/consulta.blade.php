@@ -3,7 +3,7 @@
 @section('title', 'edit')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">{{ $producto->catalogo }}</h1>
+    <h1 class="m-0">{{ $producto->catalogo }}</h1>
 @stop
 
 @section('content')
@@ -26,10 +26,10 @@
                             @include('partials.input', [
                                 'name' => 'catalogo',
                                 'placeholder' => 'Catalogo / Modelo / Nombre',
-                                'icon' => 'fas fa-tag',
+                                'icon' => 'bi bi-tag',
                                 'label' => 'Catalogo / Modelo / Nombre',
                                 'value' => $producto->catalogo,
-                                'label-class' => 'text-lightblue',
+                                'label-class' => 'text-primary',
                             ])
                             @include('partials.textarea', [
                                 'name' => 'descripcion',
@@ -37,7 +37,7 @@
                                 'value' => $producto->descripcion,
                                 'placeholder' => 'Ingrese la descripcion del producto...',
                                 'rows' => 3,
-                                'icon' => 'fas fa-bars',
+                                'icon' => 'bi bi-list',
                             ])
                         </div>
                         <div class="col-md-6">
@@ -45,26 +45,26 @@
                             @include('partials.input', [
                                 'name' => 'precio',
                                 'placeholder' => 'Precio del producto con (Maximo 2 decimales)',
-                                'icon' => 'fas fa-solid fa-dollar-sign',
+                                'icon' => 'bi bi-currency-dollar',
                                 'label' => 'Precio del producto con (Maximo 2 decimales)',
                                 'value' => $producto->precio,
-                                'label-class' => 'text-lightblue',
+                                'label-class' => 'text-primary',
                             ])
                             @include('partials.input', [
                                 'name' => 'costo',
                                 'placeholder' => 'Costo del producto con (Maximo 2 decimales)',
-                                'icon' => 'fas fa-file-invoice-dollar',
+                                'icon' => 'bi bi-receipt',
                                 'label' => 'Costo del producto con (Maximo 2 decimales)',
                                 'value' => $producto->costo,
-                                'label-class' => 'text-lightblue',
+                                'label-class' => 'text-primary',
                             ])
                         </div>
                     </div>
                     <!-- Contenedor del botonera -->
                     <div class="row mt-3">
                         <div class="col-md-12 d-flex justify-content-end">
-                            <x-adminlte-button id="deleteButton" class="btn-danger" icon="fas fa-trash" label="Eliminar" />
-                            <x-adminlte-button type="submit" class="btn-primary" icon="fas fa-save" label="Actualizar" />
+                            <x-adminlte-button id="deleteButton" class="btn-danger" icon="bi bi-trash" label="Eliminar" />
+                            <x-adminlte-button type="submit" class="btn-primary" icon="bi bi-floppy" label="Actualizar" />
                         </div>
                     </div>
                 </form>

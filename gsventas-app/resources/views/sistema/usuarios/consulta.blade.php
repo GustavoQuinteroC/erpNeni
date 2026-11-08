@@ -3,7 +3,7 @@
 @section('title', 'edit')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">{{ $usuario->name }}</h1>
+    <h1 class="m-0">{{ $usuario->name }}</h1>
 @stop
 
 @section('content')
@@ -27,26 +27,26 @@
                                 'name' => 'name',
                                 'label' => 'Nombre',
                                 'value' => $usuario->name,
-                                'icon' => 'fas fa-user',
+                                'icon' => 'bi bi-person',
                             ])
                             @include('partials.input', [
                                 'name' => 'email',
                                 'type' => 'email',
                                 'label' => 'Correo',
                                 'value' => $usuario->email,
-                                'icon' => 'fas fa-at',
+                                'icon' => 'bi bi-at',
                             ])
                             @include('partials.input', [
                                 'name' => 'telefono',
                                 'label' => 'Teléfono',
                                 'value' => $usuario->telefono,
-                                'icon' => 'fas fa-phone',
+                                'icon' => 'bi bi-telephone',
                             ])
                             @include('partials.input', [
                                 'name' => 'ine',
                                 'label' => 'INE',
                                 'value' => $usuario->ine,
-                                'icon' => 'fas fa-address-card',
+                                'icon' => 'bi bi-person-vcard',
                             ])
                         </div>
 
@@ -56,27 +56,27 @@
                                 'name' => 'domicilio',
                                 'label' => 'Domicilio',
                                 'value' => $usuario->domicilio,
-                                'icon' => 'fas fa-home',
+                                'icon' => 'bi bi-house',
                             ])
                             @include('partials.input', [
                                 'name' => 'rfc',
                                 'label' => 'RFC',
                                 'value' => $usuario->rfc,
-                                'icon' => 'fas fa-address-card',
+                                'icon' => 'bi bi-person-vcard',
                             ])
                             @include('partials.input', [
                                 'name' => 'password',
                                 'type' => 'password',
                                 'label' => 'Contraseña',
-                                'icon' => 'fas fa-key',
+                                'icon' => 'bi bi-key',
                             ])
                         </div>
                     </div>
                     <!-- Contenedor del botonera -->
                     <div class="row mt-3">
                         <div class="col-md-12 d-flex justify-content-end">
-                            <x-adminlte-button id="deleteButton" class="btn-danger" icon="fas fa-trash" label="Eliminar"/>
-                            <x-adminlte-button type="submit" class="btn-primary" icon="fas fa-save" label="Actualizar"/>
+                            <x-adminlte-button id="deleteButton" class="btn-danger" icon="bi bi-trash" label="Eliminar"/>
+                            <x-adminlte-button type="submit" class="btn-primary" icon="bi bi-floppy" label="Actualizar"/>
                         </div>
                     </div>
                 </form>

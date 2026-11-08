@@ -4,7 +4,7 @@
 
 @section('content_header')
     <div class="d-flex justify-content-between align-items-center">
-        <h1 class="m-0 text-dark">Inventario por Almacén</h1>
+        <h1 class="m-0">Inventario por Almacén</h1>
     </div>
 @stop
 
@@ -17,7 +17,7 @@
                 <div class="card-tools">
                     <form action="{{ route('inventarios.index') }}" method="GET">
                         <div class="input-group input-group-sm" style="width: 200px;">
-                            <select class="form-control" name="almacen_id" onchange="this.form.submit()">
+                            <select class="form-select" name="almacen_id" onchange="this.form.submit()">
                                 <option value="">Seleccione un almacén</option>
                                 @foreach($almacenes as $almacen)
                                     <option value="{{ $almacen->id }}" {{ $almacen_id == $almacen->id ? 'selected' : '' }}>

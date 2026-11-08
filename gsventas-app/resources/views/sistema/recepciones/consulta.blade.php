@@ -3,7 +3,7 @@
 @section('title', 'Consulta de recepción')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Consulta de recepción {{ $recepcione->id }}</h1>
+    <h1 class="m-0">Consulta de recepción {{ $recepcione->id }}</h1>
 @stop
 
 @section('content')
@@ -16,14 +16,14 @@
                         <x-adminlte-input name="selectedSocio" value="{{ $socio->name }}" placeholder="Proveedor" disabled>
                             <x-slot name="prependSlot">
                                 <div class="input-group-text">
-                                    <i class="fas fa-user"></i>
+                                    <i class="bi bi-person"></i>
                                 </div>
                             </x-slot>
                         </x-adminlte-input>
                         <x-adminlte-input name="idalmacen" value="{{ $almacen->name }}" placeholder="Almacen" disabled>
                             <x-slot name="prependSlot">
                                 <div class="input-group-text">
-                                    <i class="fas fa-warehouse fa-sm"></i>
+                                    <i class="bi bi-house-door"></i>
                                 </div>
                             </x-slot>
                         </x-adminlte-input>
@@ -31,7 +31,7 @@
                             placeholder="Forma de pago" disabled>
                             <x-slot name="prependSlot">
                                 <div class="input-group-text">
-                                    <i class="fas fa-wallet"></i>
+                                    <i class="bi bi-wallet2"></i>
                                 </div>
                             </x-slot>
                         </x-adminlte-input>
@@ -39,7 +39,7 @@
                             placeholder="Cuenta de pago" disabled>
                             <x-slot name="prependSlot">
                                 <div class="input-group-text">
-                                    <i class="fas fa-credit-card"></i>
+                                    <i class="bi bi-credit-card"></i>
                                 </div>
                             </x-slot>
                         </x-adminlte-input>
@@ -49,7 +49,7 @@
                             placeholder="Fecha de la recepción" disabled>
                             <x-slot name="prependSlot">
                                 <div class="input-group-text">
-                                    <i class="fas fa-calendar-alt"></i>
+                                    <i class="bi bi-calendar3"></i>
                                 </div>
                             </x-slot>
                         </x-adminlte-input>
@@ -57,7 +57,7 @@
                             disabled>
                             <x-slot name="prependSlot">
                                 <div class="input-group-text">
-                                    <i class="fas fa-shipping-fast fa-sm"></i>
+                                    <i class="bi bi-truck"></i>
                                 </div>
                             </x-slot>
                         </x-adminlte-input>
@@ -65,7 +65,7 @@
                             disabled>
                             <x-slot name="prependSlot">
                                 <div class="input-group-text">
-                                    <i class="fas fa-hashtag"></i>
+                                    <i class="bi bi-hash"></i>
                                 </div>
                             </x-slot>
                         </x-adminlte-input>
@@ -73,7 +73,7 @@
                             placeholder="Costos de manipulación" disabled>
                             <x-slot name="prependSlot">
                                 <div class="input-group-text">
-                                    <i class="fas fa-dollar-sign fa-lg"></i>
+                                    <i class="bi bi-currency-dollar"></i>
                                 </div>
                             </x-slot>
                         </x-adminlte-input>
@@ -87,7 +87,7 @@
                     'searching' => false,
                     'info' => false,
                     'ordering' => false,
-                    'language' => ['url' => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json'],
+                    'language' => ['url' => '//cdn.datatables.net/plug-ins/2.3.8/i18n/es-ES.json'],
                     'columnDefs' => [
                         ['width' => '10%', 'targets' => 0],
                         ['width' => '20%', 'targets' => 1],

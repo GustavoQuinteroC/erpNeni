@@ -3,7 +3,7 @@
 @section('title', 'Principal')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Registro de producto</h1>
+    <h1 class="m-0">Registro de producto</h1>
 @stop
 
 @section('content')
@@ -25,16 +25,16 @@
                             @include('partials.input', [
                                 'name' => 'catalogo',
                                 'placeholder' => 'Catalogo / Modelo / Nombre',
-                                'icon' => 'fas fa-tag',
+                                'icon' => 'bi bi-tag',
                                 'label' => 'Catalogo / Modelo / Nombre',
-                                'label-class' => 'text-lightblue',
+                                'label-class' => 'text-primary',
                             ])
                             @include('partials.textarea', [
                                 'name' => 'descripcion',
                                 'label' => 'Ingrese el domicilio...',
                                 'placeholder' => 'Ingrese la descripcion del producto...',
                                 'rows' => 3,
-                                'icon' => 'fas fa-bars',
+                                'icon' => 'bi bi-list',
                             ])
                         </div>
                         <div class="col-md-6">
@@ -42,16 +42,16 @@
                             @include('partials.input', [
                                 'name' => 'precio',
                                 'placeholder' => 'Precio del producto con (Maximo 2 decimales)',
-                                'icon' => 'fas fa-solid fa-dollar-sign',
+                                'icon' => 'bi bi-currency-dollar',
                                 'label' => 'Precio del producto (Maximo 2 decimales)',
-                                'label-class' => 'text-lightblue',
+                                'label-class' => 'text-primary',
                             ])
                             @include('partials.input', [
                                 'name' => 'costo',
                                 'placeholder' => 'Costo del producto con (Maximo 2 decimales)',
-                                'icon' => 'fas fa-file-invoice-dollar',
+                                'icon' => 'bi bi-receipt',
                                 'label' => 'Costo del producto (Maximo 2 decimales)',
-                                'label-class' => 'text-lightblue',
+                                'label-class' => 'text-primary',
                             ])
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                                 'type' => 'submit',
                                 'label' => 'Guardar',
                                 'theme' => 'primary',
-                                'icon' => 'fas fa-save',
+                                'icon' => 'bi bi-floppy',
                             ])
                         </div>
                     </div>

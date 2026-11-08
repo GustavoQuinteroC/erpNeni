@@ -20,8 +20,8 @@ class PuntosEntregaController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btnEdit = '<button type="button" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit" onclick="editarPuntoEntrega(' . $row->id . ')">
-                                <i class="fa fa-lg fa-fw fa-pen"></i>
+                    $btnEdit = '<button type="button" class="btn btn-sm btn-outline-secondary text-primary mx-1" title="Edit" onclick="editarPuntoEntrega(' . $row->id . ')">
+                                <i class="bi bi-pencil"></i>
                             </button>';
                     return $btnEdit;
                 })

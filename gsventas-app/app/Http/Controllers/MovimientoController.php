@@ -26,8 +26,8 @@ class MovimientoController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btnEdit = '<a href="' . route('movimientos.show', $row->id) . '" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                            <i class="fa fa-lg fa-fw fa-pen"></i>
+                    $btnEdit = '<a href="' . route('movimientos.show', $row->id) . '" class="btn btn-sm btn-outline-secondary text-primary mx-1" title="Edit">
+                            <i class="bi bi-pencil"></i>
                         </a>';
                     return $btnEdit;
                 })

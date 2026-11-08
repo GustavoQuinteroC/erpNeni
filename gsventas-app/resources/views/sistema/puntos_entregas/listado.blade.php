@@ -4,8 +4,8 @@
 
 @section('content_header')
     <div class="d-flex justify-content-between align-items-center">
-        <h1 class="m-0 text-dark">Listado de Puntos de entrega</h1>
-        <x-adminlte-button label="Nuevo registro" data-toggle="modal" data-target="#modalNuevoPuntoEntrega"
+        <h1 class="m-0">Listado de Puntos de entrega</h1>
+        <x-adminlte-button label="Nuevo registro" data-bs-toggle="modal" data-bs-target="#modalNuevoPuntoEntrega"
             class="btn btn-primary" />
     </div>
 @stop
@@ -25,54 +25,52 @@
                 </x-adminlte-alert>
             @endif
             <div class="card-body">
-                <div class="table-responsive">
-                    <table id="table1" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Clasificación</th>
-                                <th>Línea</th>
-                                <th>Latitud</th>
-                                <th>Longitud</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
+                <table id="table1" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Clasificación</th>
+                            <th>Línea</th>
+                            <th>Latitud</th>
+                            <th>Longitud</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     </section>
 
     <!-- Modal Nuevo Punto de Entrega -->
-    <x-adminlte-modal id="modalNuevoPuntoEntrega" title="Nuevo Punto de Entrega" theme="purple" icon="fas fa-plus"
+    <x-adminlte-modal id="modalNuevoPuntoEntrega" title="Nuevo Punto de Entrega" theme="primary" icon="bi bi-plus-lg"
         size='md' disable-animations no-close>
         <form id="formNuevoPuntoEntrega" action="{{ route('puntos_entregas.store') }}" method="POST">
             @csrf
             <div class="modal-body">
-                <div class="form-group">
+                <div class="mb-3">
                     <x-adminlte-input name="nombre" label="Nombre" placeholder="Ingrese el nombre del punto de entrega" />
                 </div>
-                <div class="form-group">
-                    <x-adminlte-select name="clasificacion" label="Clasificación" label-class="text-lightblue"
-                        igroup-size="md">
+                <div class="mb-3">
+                    <x-adminlte-select name="clasificacion" label="Clasificación" label-class="text-primary"
+                        >
                         <option value="Tren">Tren</option>
                         <option value="Macrobus">Macrobus</option>
                     </x-adminlte-select>
                 </div>
-                <div class="form-group" id="linea_group">
-                    <x-adminlte-select name="linea" label="Línea" label-class="text-lightblue" igroup-size="md">
+                <div class="mb-3" id="linea_group">
+                    <x-adminlte-select name="linea" label="Línea" label-class="text-primary" >
                     </x-adminlte-select>
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <x-adminlte-input name="latitud" label="Latitud" placeholder="Ingrese la latitud" />
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <x-adminlte-input name="longitud" label="Longitud" placeholder="Ingrese la longitud" />
                 </div>
             </div>
             <x-slot name="footerSlot">
-                <x-adminlte-button label="Cancelar" theme="danger" data-dismiss="modal" />
+                <x-adminlte-button label="Cancelar" theme="danger" data-bs-dismiss="modal" />
                 <x-adminlte-button label="Guardar" theme="success"
                     onclick="event.preventDefault(); document.getElementById('formNuevoPuntoEntrega').submit();" />
             </x-slot>
@@ -81,36 +79,36 @@
     <!-- Modal Nuevo Punto de Entrega -->
 
     <!-- Modal Editar Punto de Entrega -->
-    <x-adminlte-modal id="modalEditarPuntoEntrega" title="Editar Punto de Entrega" theme="purple" icon="fas fa-edit"
+    <x-adminlte-modal id="modalEditarPuntoEntrega" title="Editar Punto de Entrega" theme="primary" icon="bi bi-pencil-square"
         size='md' disable-animations no-close>
         <form id="formEditarPuntoEntrega" action="" method="POST">
             @csrf
             @method('PUT')
             <div class="modal-body">
-                <div class="form-group">
+                <div class="mb-3">
                     <x-adminlte-input name="nombre_edit" label="Nombre"
                         placeholder="Ingrese el nombre del punto de entrega" />
                 </div>
-                <div class="form-group">
-                    <x-adminlte-select name="clasificacion_edit" label="Clasificación" label-class="text-lightblue"
-                        igroup-size="md">
+                <div class="mb-3">
+                    <x-adminlte-select name="clasificacion_edit" label="Clasificación" label-class="text-primary"
+                        >
                         <option value="Tren">Tren</option>
                         <option value="Macrobus">Macrobus</option>
                     </x-adminlte-select>
                 </div>
-                <div class="form-group" id="linea_group_edit">
-                    <x-adminlte-select name="linea_edit" label="Línea" label-class="text-lightblue" igroup-size="md">
+                <div class="mb-3" id="linea_group_edit">
+                    <x-adminlte-select name="linea_edit" label="Línea" label-class="text-primary" >
                     </x-adminlte-select>
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <x-adminlte-input name="latitud_edit" label="Latitud" placeholder="Ingrese la latitud" />
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <x-adminlte-input name="longitud_edit" label="Longitud" placeholder="Ingrese la longitud" />
                 </div>
             </div>
             <x-slot name="footerSlot">
-                <x-adminlte-button label="Cancelar" theme="danger" data-dismiss="modal" />
+                <x-adminlte-button label="Cancelar" theme="danger" data-bs-dismiss="modal" />
                 <x-adminlte-button label="Guardar" theme="success"
                     onclick="event.preventDefault(); document.getElementById('formEditarPuntoEntrega').submit();" />
             </x-slot>
@@ -119,13 +117,6 @@
     <!-- Modal Editar Punto de Entrega -->
 @stop
 
-@section('css')
-    <style>
-        .dataTables_wrapper {
-            overflow-x: auto;
-        }
-    </style>
-@stop
 
 @section('js')
     <script>
@@ -186,18 +177,17 @@
                 ],
                 // Configuración para el idioma español
                 language: {
-                    "url": "//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json"
+                    "url": "//cdn.datatables.net/plug-ins/2.3.8/i18n/es-ES.json"
                 },
                 // Configuración adicional para hacer la tabla responsiva y centrar el contenido
-                responsive: true,
                 autoWidth: false,
                 columnDefs: [{
                         targets: [1],
-                        className: 'text-left'
+                        className: 'text-start'
                     }, // Alinear a la izquierda las columnas 1, 2 y 3
                     {
                         targets: [],
-                        className: 'text-right'
+                        className: 'text-end'
                     }, // Alinear a la derecha las columnas 4 y 5
                     {
                         targets: '_all',

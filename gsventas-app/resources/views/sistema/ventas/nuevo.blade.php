@@ -3,7 +3,7 @@
 @section('title', 'Principal')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Registro de venta</h1>
+    <h1 class="m-0">Registro de venta</h1>
 @stop
 
 @section('content')
@@ -32,35 +32,35 @@
                                 placeholder="Buscar cliente por nombre / nombre del cliente">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="bi bi-person"></i>
                                     </div>
                                 </x-slot>
                                 <x-slot name="appendSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-search"></i>
+                                        <i class="bi bi-search"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
                             <x-adminlte-input type="tel" name="telefono" placeholder="Telefono (10 Digitos)">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-phone"></i>
+                                        <i class="bi bi-telephone"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
-                            <x-adminlte-select2 name="idalmacen" label-class="text-lightblue" data-placeholder="Almacen...">
+                            <x-adminlte-select2 name="idalmacen" label-class="text-primary" data-placeholder="Almacen...">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-warehouse fa-sm"></i>
+                                        <i class="bi bi-house-door"></i>
                                     </div>
                                 </x-slot>
                                 <x-adminlte-options :options="['' => 'Almacen...'] + $almacenes->pluck('name', 'id')->toArray()" selected="" />
                             </x-adminlte-select2>
-                            <x-adminlte-select2 name="forma_pago" label-class="text-blank"
+                            <x-adminlte-select2 name="forma_pago" label-class="text-body-secondary"
                                 data-placeholder="Forma de pago...">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-solid fa-wallet"></i>
+                                        <i class="bi bi-wallet2"></i>
                                     </div>
                                 </x-slot>
                                 <x-adminlte-options :options="[
@@ -75,7 +75,7 @@
                             <x-adminlte-input name="cuenta_pago" placeholder="Cuenta de pago">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-credit-card"></i>
+                                        <i class="bi bi-credit-card"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
@@ -87,12 +87,12 @@
                                 placeholder="Buscar punto de entrega por nombre">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-map-marker"></i>
+                                        <i class="bi bi-geo-alt"></i>
                                     </div>
                                 </x-slot>
                                 <x-slot name="appendSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-search"></i>
+                                        <i class="bi bi-search"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
@@ -100,12 +100,12 @@
                                 placeholder="Buscar por nombre al usuario asignado">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="bi bi-person"></i>
                                     </div>
                                 </x-slot>
                                 <x-slot name="appendSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-search"></i>
+                                        <i class="bi bi-search"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
@@ -113,7 +113,7 @@
                                 value="{{ now()->format('Y-m-d') }}">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-calendar-check"></i>
+                                        <i class="bi bi-calendar-check"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
@@ -121,7 +121,7 @@
                                 value="{{ now()->format('H:i') }}">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-clock"></i>
+                                        <i class="bi bi-clock"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
@@ -129,7 +129,7 @@
                                 type="text">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-sticky-note"></i>
+                                        <i class="bi bi-sticky"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
@@ -139,7 +139,7 @@
                                 type="number" step="0.01">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-dollar-sign"></i>
+                                        <i class="bi bi-currency-dollar"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
@@ -150,7 +150,7 @@
                             <div class="col-md-6">
                                 <h4>Productos</h4>
                             </div>
-                            <div class="col-md-6 text-right">
+                            <div class="col-md-6 text-end">
                                 <button id="btnAgregarProductos" type="button" class="btn btn-primary">Agregar
                                     productos</button>
                             </div>
@@ -161,7 +161,7 @@
                         'searching' => false,
                         'info' => false,
                         'ordering' => false,
-                        'language' => ['url' => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json'],
+                        'language' => ['url' => '//cdn.datatables.net/plug-ins/2.3.8/i18n/es-ES.json'],
                         'columnDefs' => [
                             ['width' => '5%', 'targets' => 0],
                             ['width' => '30%', 'targets' => 1],
@@ -184,15 +184,15 @@
                     <!-- Contenedor del botonera -->
                     <div class="row mt-3">
                         <div class="col-md-12 d-flex justify-content-end">
-                            <x-adminlte-button type="submit" label="Guardar" theme="primary" icon="fas fa-save" />
+                            <x-adminlte-button type="submit" label="Guardar" theme="primary" icon="bi bi-floppy" />
                         </div>
                     </div>
                 </form>
             </div>
         </div>
         <!-- Modal para agregar productos -->
-        <x-adminlte-modal id="modalProductos" title="Lista de productos" size="lg" theme="purple"
-            icon="fas fa-shopping-cart">
+        <x-adminlte-modal id="modalProductos" title="Lista de productos" size="lg" theme="primary"
+            icon="bi bi-cart">
             <div class="modal-body">
                 <table id="tablaProductos" class="table">
                     <thead>
@@ -208,13 +208,13 @@
                 </table>
             </div>
             <x-slot name="footerSlot">
-                <x-adminlte-button class="mr-auto" theme="danger" label="Cancelar" data-dismiss="modal" />
+                <x-adminlte-button class="mr-auto" theme="danger" label="Cancelar" data-bs-dismiss="modal" />
                 <x-adminlte-button theme="success" label="Aceptar" />
             </x-slot>
         </x-adminlte-modal>
         <!-- Modal para editar productos -->
-        <x-adminlte-modal id="modalEditarProducto" title="Editar producto" size="md" theme="purple"
-            icon="fas fa-edit">
+        <x-adminlte-modal id="modalEditarProducto" title="Editar producto" size="md" theme="primary"
+            icon="bi bi-pencil-square">
             <div class="modal-body">
                 <input type="hidden" id="edit-product-id">
                 <p><strong>Catálogo:</strong> <span id="edit-product-catalog"></span></p>
@@ -224,7 +224,7 @@
                     placeholder="Ingrese la cantidad del producto" type="number" />
             </div>
             <x-slot name="footerSlot">
-                <x-adminlte-button class="mr-auto" theme="danger" label="Cancelar" data-dismiss="modal" />
+                <x-adminlte-button class="mr-auto" theme="danger" label="Cancelar" data-bs-dismiss="modal" />
                 <x-adminlte-button class="editar-producto" theme="success" label="Guardar" />
             </x-slot>
         </x-adminlte-modal>
@@ -235,12 +235,6 @@
 @stop
 
 @section('js')
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <!-- jQuery UI -->
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <!-- Bootstrap JavaScript -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -338,11 +332,11 @@
                     fila.append('<td>' + producto.cantidad + '</td>');
                     fila.append('<td>' + importe.toFixed(2) + '</td>');
                     var columnaIconos = $('<td>').addClass('text-center');
-                    var iconoEliminar = $('<i>').addClass('fas fa-trash-alt text-danger mr-2').attr('title',
+                    var iconoEliminar = $('<i>').addClass('bi bi-trash3 text-danger me-2').attr('title',
                         'Eliminar').css('cursor', 'pointer').click(function() {
                         eliminarProducto(producto.id);
                     });
-                    var iconoEditar = $('<i>').addClass('fas fa-edit text-primary').attr('title', 'Editar')
+                    var iconoEditar = $('<i>').addClass('bi bi-pencil-square text-primary').attr('title', 'Editar')
                         .css('cursor', 'pointer').click(function() {
                             editarProducto(producto.id);
                         });
@@ -418,9 +412,6 @@
                     $('#idusuario').val(ui.item.id);
                     $('#nombre_usuario').val(ui.item.label);
                     return false;
-                },
-                open: function(event, ui) {
-                    $('.ui-autocomplete').addClass('autocomplete-suggestions');
                 }
             });
 
@@ -446,9 +437,6 @@
                     $('#telefono').val(ui.item.telefono);
                     $('#sexo').val(ui.item.sexo);
                     return false;
-                },
-                open: function(event, ui) {
-                    $('.ui-autocomplete').addClass('autocomplete-suggestions');
                 }
             });
 
@@ -471,45 +459,9 @@
                     $('#nombre_punto').val(ui.item.label);
                     $('#idpunto_entrega').val(ui.item.id);
                     return false;
-                },
-                open: function(event, ui) {
-                    $('.ui-autocomplete').addClass('autocomplete-suggestions');
                 }
             });
         });
     </script>
 @stop
 
-@section('css')
-    <style>
-        .autocomplete-suggestions {
-            width: 39% !important;
-            max-height: 200px;
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            background-color: #3a3e42;
-            color: #ccc;
-            padding: 0;
-            /* Resetear el relleno */
-            margin: 0;
-            /* Resetear el margen */
-        }
-
-        .autocomplete-suggestions li {
-            padding: 5px 10px;
-            /* Añadir relleno deseado */
-            text-align: left;
-            list-style-type: none;
-            /* Eliminar los puntos de la lista */
-            margin: 0;
-            /* Resetear el margen */
-        }
-
-        .autocomplete-suggestions li:hover {
-            background-color: #f5f5f5;
-            color: #585f66;
-            /* Cambiar color de texto al pasar el cursor */
-            cursor: pointer;
-        }
-    </style>
-@stop

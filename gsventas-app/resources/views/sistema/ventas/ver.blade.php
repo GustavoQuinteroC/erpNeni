@@ -3,7 +3,7 @@
 @section('title', 'Principal')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">{{ $socio->name }}</h1>
+    <h1 class="m-0">{{ $socio->name }}</h1>
 @stop
 
 @section('content')
@@ -27,35 +27,35 @@
                                 readonly>
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="bi bi-person"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
                             <x-adminlte-input type="tel" name="telefono" value="{{ $socio->telefono }}" readonly>
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-phone"></i>
+                                        <i class="bi bi-telephone"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
                             <x-adminlte-input name="almacen" value="{{ $almacen->name }}" readonly>
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-warehouse"></i>
+                                        <i class="bi bi-house-door"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
                             <x-adminlte-input name="forma_pago" value="{{ $venta->forma_pago }}" readonly>
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-wallet"></i>
+                                        <i class="bi bi-wallet2"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
                             <x-adminlte-input name="cuenta_pago" value="{{ $venta->cuenta_pago }}" readonly>
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-credit-card"></i>
+                                        <i class="bi bi-credit-card"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
@@ -67,7 +67,7 @@
                                 readonly>
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-map-marker"></i>
+                                        <i class="bi bi-geo-alt"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
@@ -75,21 +75,21 @@
                                 readonly>
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="bi bi-person"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
                             <x-adminlte-input name="fecha" type="date" value="{{ $entrega->fecha }}" readonly>
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-calendar-check"></i>
+                                        <i class="bi bi-calendar-check"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
                             <x-adminlte-input name="hora" type="time" value="{{ $entrega->hora }}" readonly>
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-clock"></i>
+                                        <i class="bi bi-clock"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
@@ -97,7 +97,7 @@
                                 value="{{ $venta->notas }}" readonly>
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-sticky-note"></i>
+                                        <i class="bi bi-sticky"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
@@ -107,7 +107,7 @@
                                 value="{{ $entrega->costo_entrega }}" readonly>
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-dollar-sign"></i>
+                                        <i class="bi bi-currency-dollar"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
@@ -154,7 +154,7 @@
                     <!-- Contenedor del botonera -->
                     <div class="row mt-3">
                         <div class="col-md-12 d-flex justify-content-end">
-                            <!--<x-adminlte-button type="submit" label="Guardar" theme="primary" icon="fas fa-save" />-->
+                            <!--<x-adminlte-button type="submit" label="Guardar" theme="primary" icon="bi bi-floppy" />-->
                         </div>
                     </div>
                 </form>

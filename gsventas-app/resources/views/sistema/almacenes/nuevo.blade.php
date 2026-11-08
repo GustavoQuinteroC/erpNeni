@@ -3,7 +3,7 @@
 @section('title', 'Principal')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Registro de almacén</h1>
+    <h1 class="m-0">Registro de almacén</h1>
 @stop
 
 @section('content')
@@ -22,10 +22,10 @@
                     <div class="row">
                         <div class="col-md-6">
                             <!-- Columna izquierda -->
-                            <x-adminlte-input name="name" placeholder="Nombre del almacén" label-class="text-lightblue">
+                            <x-adminlte-input name="name" placeholder="Nombre del almacén" label-class="text-primary">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-warehouse"></i>
+                                        <i class="bi bi-house-door"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
@@ -35,7 +35,7 @@
                                 </x-slot>
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-search"></i>
+                                        <i class="bi bi-search"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
@@ -43,10 +43,10 @@
                             <input type="hidden" name="idusuario" id="idusuario" value="">
 
                             <x-adminlte-input name="capacidad" placeholder="Capacidad máxima (en metros^3)"
-                                label-class="text-lightblue" type="number">
+                                label-class="text-primary" type="number">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-dolly"></i>
+                                        <i class="bi bi-box-seam"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-input>
@@ -55,11 +55,11 @@
                         <div class="col-md-6">
                             <!-- Columna derecha -->
 
-                            <x-adminlte-textarea name="direccion" rows=6 label-class="text-lightblue"
+                            <x-adminlte-textarea name="direccion" rows=6 label-class="text-primary"
                                 placeholder="Dirección del almacén">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text bg-dark">
-                                        <i class="fas fa-map"></i>
+                                        <i class="bi bi-map"></i>
                                     </div>
                                 </x-slot>
                             </x-adminlte-textarea>
@@ -70,16 +70,16 @@
                             <div class="col-md-6">
                                 <h4>Productos</h4>
                             </div>
-                            <div class="col-md-6 text-right">
-                                <x-adminlte-button label="Agregar productos" data-toggle="modal"
-                                    data-target="#modalProductos" class="btn btn-primary" />
+                            <div class="col-md-6 text-end">
+                                <x-adminlte-button label="Agregar productos" data-bs-toggle="modal"
+                                    data-bs-target="#modalProductos" class="btn btn-primary" />
                             </div>
                         </div>
                     </div>
 
                     <!-- Modal para mostrar la lista de productos -->
-                    <x-adminlte-modal id="modalProductos" title="Lista de Productos" size="lg" theme="purple"
-                        icon="fas fa-shopping-cart">
+                    <x-adminlte-modal id="modalProductos" title="Lista de Productos" size="lg" theme="primary"
+                        icon="bi bi-cart">
                         <div class="modal-body">
                             <table id="tablaProductos" class="table">
                                 <thead>
@@ -96,7 +96,7 @@
                             </table>
                         </div>
                         <x-slot name="footerSlot">
-                            <x-adminlte-button class="mr-auto" theme="danger" label="Cancelar" data-dismiss="modal" />
+                            <x-adminlte-button class="mr-auto" theme="danger" label="Cancelar" data-bs-dismiss="modal" />
                             <x-adminlte-button theme="success" label="Aceptar" />
 
                         </x-slot>
@@ -108,7 +108,7 @@
                         'searching' => false,
                         'info' => false,
                         'ordering' => false,
-                        'language' => ['url' => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json'],
+                        'language' => ['url' => '//cdn.datatables.net/plug-ins/2.3.8/i18n/es-ES.json'],
                         'columnDefs' => [
                             ['width' => '20%', 'targets' => 1],
                             ['width' => '60%', 'targets' => 2],
@@ -124,7 +124,7 @@
                                 'type' => 'submit',
                                 'label' => 'Guardar',
                                 'theme' => 'primary',
-                                'icon' => 'fas fa-save',
+                                'icon' => 'bi bi-floppy',
                             ])
                         </div>
                     </div>
@@ -136,12 +136,6 @@
 
 
 @section('js')
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <!-- jQuery UI -->
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <!-- Bootstrap JavaScript -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         // Inicializar la variable productos con el arreglo de productos desde PHP
         var productos = @json($productos);
@@ -166,9 +160,6 @@
                     $('#idusuario').val(ui.item.id);
                     $('#liusuarios').val(ui.item.label);
                     return false;
-                },
-                open: function(event, ui) {
-                    $('.ui-autocomplete').addClass('autocomplete-suggestions');
                 }
             });
 
@@ -231,7 +222,7 @@
                     fila.append('<td>' + producto.catalogo + '</td>');
                     fila.append('<td>' + producto.descripcion + '</td>');
                     // Agregar icono de eliminación centrado en la última columna
-                    var iconoEliminar = $('<i>').addClass('fas fa-trash-alt text-danger').attr('title',
+                    var iconoEliminar = $('<i>').addClass('bi bi-trash3 text-danger').attr('title',
                         'Eliminar').css('cursor', 'pointer').click(function() {
                         eliminarProducto(producto.id);
                     });
@@ -286,36 +277,3 @@
     </script>
 @stop
 
-@section('css')
-    <style>
-        .autocomplete-suggestions {
-            width: 39% !important;
-            max-height: 200px;
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            background-color: #3a3e42;
-            color: #ccc;
-            padding: 0;
-            /* Resetear el relleno */
-            margin: 0;
-            /* Resetear el margen */
-        }
-
-        .autocomplete-suggestions li {
-            padding: 5px 10px;
-            /* Añadir relleno deseado */
-            text-align: left;
-            list-style-type: none;
-            /* Eliminar los puntos de la lista */
-            margin: 0;
-            /* Resetear el margen */
-        }
-
-        .autocomplete-suggestions li:hover {
-            background-color: #f5f5f5;
-            color: #585f66;
-            /* Cambiar color de texto al pasar el cursor */
-            cursor: pointer;
-        }
-    </style>
-@stop

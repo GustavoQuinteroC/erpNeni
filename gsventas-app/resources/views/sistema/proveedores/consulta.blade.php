@@ -3,7 +3,7 @@
 @section('title', 'Principal')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">{{ $proveedore->name }}</h1>
+    <h1 class="m-0">{{ $proveedore->name }}</h1>
 @stop
 
 @section('content')
@@ -26,20 +26,20 @@
                                 'name' => 'name',
                                 'label' => 'Nombre Completo',
                                 'value' => $proveedore->name,
-                                'icon' => 'fas fa-user',
+                                'icon' => 'bi bi-person',
                             ])
                             @include('partials.input', [
                                 'name' => 'email',
                                 'type' => 'email',
                                 'label' => 'Correo (correo@ejemplo.com)',
                                 'value' => $proveedore->email,
-                                'icon' => 'fas fa-at',
+                                'icon' => 'bi bi-at',
                             ])
                             @include('partials.input', [
                                 'name' => 'telefono',
                                 'label' => 'Telefono (10 Digitos)',
                                 'value' => $proveedore->telefono,
-                                'icon' => 'fas fa-phone',
+                                'icon' => 'bi bi-telephone',
                             ])
                             @include('partials.select2', [
                                 'name' => 'sexo',
@@ -59,7 +59,7 @@
                                 'name' => 'dias_entrega',
                                 'label' => 'Dias de entrega',
                                 'value' => $proveedore->dias_entrega,
-                                'icon' => 'fas fa-calendar-check',
+                                'icon' => 'bi bi-calendar-check',
                             ])
                             @include('partials.select2', [
                                 'name' => 'plataforma',
@@ -76,20 +76,20 @@
                                 'name' => 'rfc',
                                 'label' => 'RFC (Con homoclave)',
                                 'value' => $proveedore->rfc,
-                                'icon' => 'fas fa-address-card',
+                                'icon' => 'bi bi-person-vcard',
                             ])
                             @include('partials.textarea', [
                                 'name' => 'domicilio',
                                 'label' => 'Ingrese el domicilio...',
                                 'value' => $proveedore->domicilio,
-                                'icon' => 'fas fa-home',
+                                'icon' => 'bi bi-house',
                             ])
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-12 d-flex justify-content-end">
-                            <x-adminlte-button id="deleteButton" class="btn-danger" icon="fas fa-trash" label="Eliminar"/>
-                            <x-adminlte-button type="submit" class="btn-primary" icon="fas fa-save" label="Actualizar"/>
+                            <x-adminlte-button id="deleteButton" class="btn-danger" icon="bi bi-trash" label="Eliminar"/>
+                            <x-adminlte-button type="submit" class="btn-primary" icon="bi bi-floppy" label="Actualizar"/>
                         </div>
                     </div>
                     

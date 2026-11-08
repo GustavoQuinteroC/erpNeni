@@ -1,274 +1,127 @@
 @extends('adminlte::page')
 
-@section('title', 'Principal')
+@section('title', 'Tablero')
+@section('plugins.ApexCharts', true)
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Dashboard</h1>
+    <h1 class="m-0">Tablero</h1>
 @stop
+
+@php
+    $pesos = fn ($valor) => '$' . number_format((float) $valor, 2);
+    $nombresMes = ['', 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+@endphp
 
 @section('content')
     @include('partials.aviso')
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-purple">
-                        <div class="inner">
-                            @if($existenciaProductoMayorPorcentaje)
-                                <h3>{{ $existenciaProductoMayorPorcentaje->producto }}</h3>
-                                <p>Existencia total: {{ $existenciaProductoMayorPorcentaje->total_existencia }}</p>
-                            @else
-                                <h3>Sin datos</h3>
-                                <p>Existencia total: 0</p>
-                            @endif
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                        <a href="{{ route('inventarios.index') }}" class="small-box-footer">Ir al modulo de inventario <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-pink">
-                        <div class="inner">
-                            <h3>${{ $comisionesVendedor }}</h3>
-                            <p>Comisiones vendedores (últimos 30 días)</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                        <a href="{{ route('ventas.index') }}" class="small-box-footer">Ir al modulo de ventas <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-teal">
-                        <div class="inner">
-                            <h3>#{{ $totalVentas }}</h3>
-                            <p>Ventas entregadas totales (últimos 30 días)</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-shopping-bag"></i>
-                        </div>
-                        <a href="{{ route('ventas.index') }}" class="small-box-footer">Ir al módulo de ventas <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>${{ $comisionesRepartidor }}</h3>
-                            <p>Comisiones repartidores (últimos 30 días)</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                        <a href="{{ route('entregas.index') }}" class="small-box-footer">Ir al modulo de entregas <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <!-- Gráfica de Ventas Totales por Producto -->
-                <section class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card card-purple">
-                        <div class="card-header">
-                            <h3 class="card-title">Productos Vendidos</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            @if($productosVendidosEnElMes->isEmpty())
-                                <p>Sin datos disponibles</p>
-                            @else
-                                <canvas id="donutChart"
-                                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 100%;"></canvas>
-                            @endif
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Gráfica de Ventas por Usuario -->
-                <section class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card card-pink">
-                        <div class="card-header">
-                            <h3 class="card-title">Ventas por vendedor</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            @if($ventasPorUsuario->isEmpty())
-                                <p>Sin datos disponibles</p>
-                            @else
-                                <canvas id="donutChart2"
-                                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 100%;"></canvas>
-                            @endif
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- Gráfica de Monto Vendido por Mes -->
-                <section class="col-lg-6 col-md-6 col-sm-12">
-                    <div class="card card-teal">
-                        <div class="card-header">
-                            <h3 class="card-title">Monto Vendido por Mes</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            @if($montosVendidosPorMes->isEmpty())
-                                <p>Sin datos disponibles</p>
-                            @else
-                                <div class="chart">
-                                    <canvas id="areaChart"
-                                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 100%;"></canvas>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                </section>
-            </div>
+    <div class="row">
+        <div class="col-sm-6 col-xl-3">
+            <x-adminlte-small-box theme="primary" icon="bi bi-box-seam"
+                :title="$existenciaProductoMayorPorcentaje->producto ?? 'Sin datos'"
+                :text="'Más vendido del mes · existencia ' . ($existenciaProductoMayorPorcentaje->total_existencia ?? 0)"
+                :url="route('inventarios.index')" url-text="Ver inventario" />
         </div>
-    </section>
+        <div class="col-sm-6 col-xl-3">
+            <x-adminlte-small-box theme="success" icon="bi bi-bag-check"
+                :title="$totalVentas" text="Ventas entregadas en 30 días"
+                :url="route('ventas.index')" url-text="Ver ventas" />
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <x-adminlte-small-box theme="info" icon="bi bi-person-badge"
+                :title="$pesos($comisionesVendedor)" text="Comisiones de vendedores, 30 días"
+                :url="route('comisionesVendedor.index')" url-text="Ver comisiones" />
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <x-adminlte-small-box theme="warning" icon="bi bi-truck"
+                :title="$pesos($comisionesRepartidor)" text="Comisiones de repartidores, 30 días"
+                :url="route('comisionesRepartidor.index')" url-text="Ver comisiones" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-xl-3">
+            <x-adminlte-card title="Productos vendidos, 30 días" icon="bi bi-pie-chart" collapsible>
+                @if ($productosVendidosEnElMes->isEmpty())
+                    <p class="text-body-secondary mb-0">Sin ventas en los últimos 30 días.</p>
+                @else
+                    <div id="graficaProductos"></div>
+                @endif
+            </x-adminlte-card>
+        </div>
+        <div class="col-lg-6 col-xl-3">
+            <x-adminlte-card title="Ventas por vendedor" icon="bi bi-people" collapsible>
+                @if ($ventasPorUsuario->sum('ventas_pesos') == 0)
+                    <p class="text-body-secondary mb-0">Sin ventas registradas.</p>
+                @else
+                    <div id="graficaVendedores"></div>
+                @endif
+            </x-adminlte-card>
+        </div>
+        <div class="col-xl-6">
+            <x-adminlte-card title="Monto vendido por mes" icon="bi bi-graph-up" collapsible>
+                @if ($montosVendidosPorMes->isEmpty())
+                    <p class="text-body-secondary mb-0">Sin ventas en los últimos seis meses.</p>
+                @else
+                    <div id="graficaMeses"></div>
+                @endif
+            </x-adminlte-card>
+        </div>
+    </div>
 @stop
 
 @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script>
         $(function() {
-            @if(!$productosVendidosEnElMes->isEmpty())
-                // Obtener los datos de productos y porcentajes
-                var productos = {!! json_encode($productosVendidosEnElMes->pluck('producto')) !!};
-                var porcentajes = {!! json_encode($productosVendidosEnElMes->pluck('porcentaje_total')) !!};
+            const pesos = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
+            const oscuro = () => document.documentElement.getAttribute('data-bs-theme') === 'dark';
+            const base = () => ({
+                chart: { fontFamily: 'inherit', background: 'transparent', toolbar: { show: false } },
+                theme: { mode: oscuro() ? 'dark' : 'light' },
+                legend: { position: 'bottom' },
+                dataLabels: { enabled: false },
+            });
+            const graficas = [];
+            const pintar = (id, opciones) => {
+                const nodo = document.getElementById(id);
+                if (!nodo) {
+                    return;
+                }
+                const grafica = new ApexCharts(nodo, $.extend(true, base(), opciones));
+                grafica.render();
+                graficas.push(grafica);
+            };
 
-                // Configurar los datos para el gráfico de Donut
-                var ctx = document.getElementById('donutChart');
-                var myChart = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: productos,
-                        datasets: [{
-                            label: 'Porcentaje de Ventas',
-                            data: porcentajes,
-                            backgroundColor: [
-                                'rgba(128, 0, 128, 0.5)', // Púrpura
-                                'rgba(147, 112, 219, 0.5)', // Morado claro
-                                'rgba(75, 0, 130, 0.5)', // Índigo oscuro
-                                'rgba(186, 85, 211, 0.5)', // Orquídea oscura
-                                // Añadir más colores si tienes más de 4 productos
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                            },
-                            title: {
-                                display: true,
-                                text: '(Últimos 30 días)'
-                            }
-                        }
-                    }
-                });
-            @endif
+            pintar('graficaProductos', {
+                chart: { type: 'donut', height: 280 },
+                labels: @json($productosVendidosEnElMes->pluck('producto')),
+                series: @json($productosVendidosEnElMes->pluck('total_vendido')->map(fn ($v) => (int) $v)),
+                tooltip: { y: { formatter: v => v + ' piezas' } },
+            });
 
-            @if(!$ventasPorUsuario->isEmpty())
-                // Obtener los datos de usuarios y porcentajes de ventas
-                var usuarios = {!! json_encode($ventasPorUsuario->pluck('nombre_usuario')) !!};
-                var porcentajesVentas = {!! json_encode($ventasPorUsuario->pluck('porcentaje_ventas')) !!};
+            pintar('graficaVendedores', {
+                chart: { type: 'donut', height: 280 },
+                labels: @json($ventasPorUsuario->where('ventas_pesos', '>', 0)->pluck('nombre_usuario')->values()),
+                series: @json($ventasPorUsuario->where('ventas_pesos', '>', 0)->pluck('ventas_pesos')->map(fn ($v) => (float) $v)->values()),
+                tooltip: { y: { formatter: v => pesos.format(v) } },
+            });
 
-                // Configurar los datos para el gráfico de Donut 2
-                var ctx2 = document.getElementById('donutChart2');
-                var myChart2 = new Chart(ctx2, {
-                    type: 'doughnut',
-                    data: {
-                        labels: usuarios,
-                        datasets: [{
-                            label: 'Porcentaje de Ventas por Usuario',
-                            data: porcentajesVentas,
-                            backgroundColor: [
-                                'rgba(255, 0, 255, 0.5)', // pink
-                                'rgba(199, 21, 133, 0.5)', // Medium violet red
-                                'rgba(218, 112, 214, 0.5)', // Orchid
-                                'rgba(238, 130, 238, 0.5)', // Violet
-                                // Agrega más colores si es necesario
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                            },
-                            title: {
-                                display: true,
-                                text: '(Últimos 30 días)'
-                            }
-                        }
-                    }
-                });
-            @endif
+            pintar('graficaMeses', {
+                chart: { type: 'area', height: 280 },
+                series: [{
+                    name: 'Vendido',
+                    data: @json($montosVendidosPorMes->map(fn ($m) => (float) $m->monto_vendido)),
+                }],
+                xaxis: {
+                    categories: @json($montosVendidosPorMes->map(fn ($m) => $nombresMes[(int) $m->mes] . ' ' . $m->{'año'})),
+                },
+                yaxis: { labels: { formatter: v => pesos.format(v) } },
+                stroke: { curve: 'smooth', width: 2 },
+                legend: { show: false },
+            });
 
-            @if(!$montosVendidosPorMes->isEmpty())
-                // Obtener los datos de montos vendidos por mes
-                var meses = {!! json_encode($montosVendidosPorMes->pluck('mes')) !!};
-                var montosVendidos = {!! json_encode($montosVendidosPorMes->pluck('monto_vendido')) !!};
-
-                // Configurar los datos para la gráfica de área
-                var ctx3 = document.getElementById('areaChart');
-                var myChart3 = new Chart(ctx3, {
-                    type: 'line',
-                    data: {
-                        labels: meses,
-                        datasets: [{
-                            label: '(Últimos 6 meses)',
-                            data: montosVendidos,
-                            borderColor: 'rgba(52, 211, 153, 1)', // Cambiado a un tono de verde
-                            backgroundColor: 'rgba(52, 211, 153, 0.2)', // Cambiado a un tono de verde para el relleno
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            filler: {
-                                propagate: true // Rellenar debajo de la línea
-                            }
-                        },
-                        elements: {
-                            line: {
-                                tension: 0.4 // Curvatura de la línea
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            @endif
+            // Las gráficas cambian de colores cuando cambia el tema claro u oscuro.
+            new MutationObserver(() => graficas.forEach(g => g.updateOptions({ theme: { mode: oscuro() ? 'dark' : 'light' } })))
+                .observe(document.documentElement, { attributes: true, attributeFilter: ['data-bs-theme'] });
         });
     </script>
 @stop

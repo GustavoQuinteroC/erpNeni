@@ -3,7 +3,7 @@
 @section('title', 'Editar entrega')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Editar Entrega</h1>
+    <h1 class="m-0">Editar Entrega</h1>
 @stop
 
 @section('content')
@@ -24,40 +24,40 @@
                         <div class="col-md-6">
                             <!-- Columna izquierda -->
                             <h4 class="text-center">Datos de la venta</h4>
-                            <x-adminlte-input name="socio" placeholder="Socio" readonly value="{{ $socio->name }}" label-class="text-lightblank">
+                            <x-adminlte-input name="socio" placeholder="Socio" readonly value="{{ $socio->name }}" label-class="text-body-secondary">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-users"></i>
+                                        <i class="bi bi-people"></i>
                                     </div>
                                 </x-slot>
                                 <x-slot name="label">
                                     Socio
                                 </x-slot>
                             </x-adminlte-input>
-                            <x-adminlte-input name="vendedor" placeholder="Vendedor" readonly value="{{ $usuario->name }}" label-class="text-lightblank">
+                            <x-adminlte-input name="vendedor" placeholder="Vendedor" readonly value="{{ $usuario->name }}" label-class="text-body-secondary">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-user"></i>
+                                        <i class="bi bi-person"></i>
                                     </div>
                                 </x-slot>
                                 <x-slot name="label">
                                     Vendedor
                                 </x-slot>
                             </x-adminlte-input>
-                            <x-adminlte-input name="fecha_venta" type="date" placeholder="Fecha de venta" readonly value="{{ $venta->created_at->format('Y-m-d') }}" label-class="text-lightblank">
+                            <x-adminlte-input name="fecha_venta" type="date" placeholder="Fecha de venta" readonly value="{{ $venta->created_at->format('Y-m-d') }}" label-class="text-body-secondary">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-calendar-alt"></i>
+                                        <i class="bi bi-calendar3"></i>
                                     </div>
                                 </x-slot>
                                 <x-slot name="label">
                                     Fecha de venta
                                 </x-slot>
                             </x-adminlte-input>
-                            <x-adminlte-input name="notas_venta" placeholder="Notas de la venta" readonly value="{{ $venta->notas }}" label-class="text-lightblank">
+                            <x-adminlte-input name="notas_venta" placeholder="Notas de la venta" readonly value="{{ $venta->notas }}" label-class="text-body-secondary">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-sticky-note"></i>
+                                        <i class="bi bi-sticky"></i>
                                     </div>
                                 </x-slot>
                                 <x-slot name="label">
@@ -65,20 +65,20 @@
                                 </x-slot>
                             </x-adminlte-input>
                             <h4 class="text-center">Costos de la venta</h4>
-                            <x-adminlte-input name="cobrar_cliente" placeholder="Cobrar al cliente" readonly value="{{ $entrega->cobrar_cliente }}" label-class="text-lightblank">
+                            <x-adminlte-input name="cobrar_cliente" placeholder="Cobrar al cliente" readonly value="{{ $entrega->cobrar_cliente }}" label-class="text-body-secondary">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-money-bill-wave"></i>
+                                        <i class="bi bi-cash-stack"></i>
                                     </div>
                                 </x-slot>
                                 <x-slot name="label">
                                     Cobrar al cliente
                                 </x-slot>
                             </x-adminlte-input>
-                            <x-adminlte-input name="comision_entrega" placeholder="Comisión por la entrega" readonly value="{{ $entrega->costo_entrega }}" label-class="text-lightblank">
+                            <x-adminlte-input name="comision_entrega" placeholder="Comisión por la entrega" readonly value="{{ $entrega->costo_entrega }}" label-class="text-body-secondary">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-hand-holding-usd"></i>
+                                        <i class="bi bi-cash-coin"></i>
                                     </div>
                                 </x-slot>
                                 <x-slot name="label">
@@ -89,50 +89,50 @@
                         <div class="col-md-6">
                             <!-- Columna derecha -->
                             <h4 class="text-center">Lugar de entrega</h4>
-                            <x-adminlte-input name="lugar_clasificacion" placeholder="Clasificación" readonly value="{{ $punto_entrega->clasificacion }}" label-class="text-lightblank">
+                            <x-adminlte-input name="lugar_clasificacion" placeholder="Clasificación" readonly value="{{ $punto_entrega->clasificacion }}" label-class="text-body-secondary">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-train"></i>
+                                        <i class="bi bi-train-front"></i>
                                     </div>
                                 </x-slot>
                                 <x-slot name="label">
                                     Clasificación
                                 </x-slot>
                             </x-adminlte-input>
-                            <x-adminlte-input name="lugar_linea" placeholder="Linea" readonly value="{{ $punto_entrega->linea }}" label-class="text-lightblank">
+                            <x-adminlte-input name="lugar_linea" placeholder="Linea" readonly value="{{ $punto_entrega->linea }}" label-class="text-body-secondary">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-train"></i>
+                                        <i class="bi bi-train-front"></i>
                                     </div>
                                 </x-slot>
                                 <x-slot name="label">
                                     Linea
                                 </x-slot>
                             </x-adminlte-input>
-                            <x-adminlte-input name="lugar_estacion" placeholder="Estación" readonly value="{{ $punto_entrega->name }}" label-class="text-lightblank">
+                            <x-adminlte-input name="lugar_estacion" placeholder="Estación" readonly value="{{ $punto_entrega->name }}" label-class="text-body-secondary">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-map-marker"></i>
+                                        <i class="bi bi-geo-alt"></i>
                                     </div>
                                 </x-slot>
                                 <x-slot name="label">
                                     Estación
                                 </x-slot>
                             </x-adminlte-input>
-                            <x-adminlte-input name="lugar_fecha" type="date" placeholder="Fecha" readonly value="{{ $entrega->fecha }}" label-class="text-lightblank">
+                            <x-adminlte-input name="lugar_fecha" type="date" placeholder="Fecha" readonly value="{{ $entrega->fecha }}" label-class="text-body-secondary">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-calendar-alt"></i>
+                                        <i class="bi bi-calendar3"></i>
                                     </div>
                                 </x-slot>
                                 <x-slot name="label">
                                     Fecha
                                 </x-slot>
                             </x-adminlte-input>
-                            <x-adminlte-input name="lugar_hora" type="time" placeholder="Hora" readonly value="{{ $entrega->hora }}" label-class="text-lightblank">
+                            <x-adminlte-input name="lugar_hora" type="time" placeholder="Hora" readonly value="{{ $entrega->hora }}" label-class="text-body-secondary">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-clock"></i>
+                                        <i class="bi bi-clock"></i>
                                     </div>
                                 </x-slot>
                                 <x-slot name="label">
@@ -140,7 +140,7 @@
                                 </x-slot>
                             </x-adminlte-input>
                             <h4 class="text-center">Datos del mensajero</h4>
-                            <x-adminlte-select name="estado" label-class="text-lightblank" readonly>
+                            <x-adminlte-select name="estado" label-class="text-body-secondary" readonly>
                                 <option value="Por contactar" {{ $entrega->status == 'Por contactar' ? 'selected' : '' }} {{ $entrega->status == 'Contactado' || $entrega->status == 'Confirmado' || $entrega->status == 'Entregado' || strpos($entrega->status, 'Cancelado') !== false ? 'disabled' : '' }}>Por contactar</option>
                                 <option value="Contactado" {{ $entrega->status == 'Contactado' ? 'selected' : '' }} {{ $entrega->status == 'Confirmado' || $entrega->status == 'Entregado' || strpos($entrega->status, 'Cancelado') !== false ? 'disabled' : '' }}>Contactado</option>
                                 <option value="Confirmado" {{ $entrega->status == 'Confirmado' ? 'selected' : '' }} {{ $entrega->status == 'Entregado' || strpos($entrega->status, 'Cancelado') !== false ? 'disabled' : '' }}>Confirmado</option>
@@ -150,7 +150,7 @@
                                 <option value="Cancelado - No recibio" {{ $entrega->status == 'Cancelado - No recibio' ? 'selected' : '' }} {{ strpos($entrega->status, 'Cancelado') !== false ? 'disabled' : '' }}>Cancelado - No recibio</option>
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-truck"></i>
+                                        <i class="bi bi-truck"></i>
                                     </div>
                                 </x-slot>
                                 <x-slot name="label">
@@ -160,7 +160,7 @@
                             <x-adminlte-input name="notas_mensajero" placeholder="Notas del mensajero" value="{{ $entrega->notas }}" id="notas_mensajero">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
-                                        <i class="fas fa-sticky-note"></i>
+                                        <i class="bi bi-sticky"></i>
                                     </div>
                                 </x-slot>
                                 <x-slot name="label">
@@ -197,7 +197,7 @@
                     </div>
                     <div class="row mt-3" id="updateButton" {{ $entrega->status == 'Entregado' || strpos($entrega->status, 'Cancelado') !== false ? 'style=display:none;' : '' }}>
                         <div class="col-md-12 d-flex justify-content-end">
-                            <x-adminlte-button type="submit" class="btn-primary" icon="fas fa-save" label="Actualizar" />
+                            <x-adminlte-button type="submit" class="btn-primary" icon="bi bi-floppy" label="Actualizar" />
                         </div>
                     </div>
                 </form>

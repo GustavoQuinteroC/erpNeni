@@ -3,7 +3,7 @@
 @section('title', 'Principal')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Registro de usuario</h1>
+    <h1 class="m-0">Registro de usuario</h1>
 @stop
 
 @section('content')
@@ -25,31 +25,31 @@
                             @include('partials.input', [
                                 'name' => 'name',
                                 'placeholder' => 'Nombre Completo',
-                                'icon' => 'fas fa-user',
+                                'icon' => 'bi bi-person',
                                 'label' => 'Nombre Completo',
-                                'label-class' => 'text-lightblue',
+                                'label-class' => 'text-primary',
                             ])
                             @include('partials.input', [
                                 'name' => 'email',
                                 'type' => 'email',
                                 'placeholder' => 'Correo (correo@ejemplo.com)',
-                                'icon' => 'fas fa-at',
+                                'icon' => 'bi bi-at',
                                 'label' => 'Correo (correo@ejemplo.com)',
-                                'label-class' => 'text-lightblue',
+                                'label-class' => 'text-primary',
                             ])
                             @include('partials.input', [
                                 'name' => 'telefono',
                                 'placeholder' => 'Teléfono (10 Digitos)',
-                                'icon' => 'fas fa-phone',
+                                'icon' => 'bi bi-telephone',
                                 'label' => 'Teléfono (10 Digitos)',
-                                'label-class' => 'text-lightblue',
+                                'label-class' => 'text-primary',
                             ])
                             @include('partials.input', [
                                 'name' => 'ine',
                                 'placeholder' => 'INE (IDEMEX...)',
-                                'icon' => 'fas fa-address-card',
+                                'icon' => 'bi bi-person-vcard',
                                 'label' => 'INE (IDEMEX...)',
-                                'label-class' => 'text-lightblue',
+                                'label-class' => 'text-primary',
                             ])
                         </div>
                         <div class="col-md-6">
@@ -57,24 +57,24 @@
                             @include('partials.input', [
                                 'name' => 'domicilio',
                                 'placeholder' => 'Domicilio',
-                                'icon' => 'fas fa-solid fa-home',
+                                'icon' => 'bi bi-house',
                                 'label' => 'Domicilio',
-                                'label-class' => 'text-lightblue',
+                                'label-class' => 'text-primary',
                             ])
                             @include('partials.input', [
                                 'name' => 'rfc',
                                 'placeholder' => 'RFC (Con homoclave)',
-                                'icon' => 'fas fa-address-card',
+                                'icon' => 'bi bi-person-vcard',
                                 'label' => 'RFC (Con homoclave)',
-                                'label-class' => 'text-lightblue',
+                                'label-class' => 'text-primary',
                             ])
                             @include('partials.input', [
                                 'name' => 'password',
                                 'type' => 'password',
                                 'placeholder' => 'Contraseña',
-                                'icon' => 'fas fa-key',
+                                'icon' => 'bi bi-key',
                                 'label' => 'Contraseña',
-                                'label-class' => 'text-lightblue',
+                                'label-class' => 'text-primary',
                             ])
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                                 'type' => 'submit',
                                 'label' => 'Guardar',
                                 'theme' => 'primary',
-                                'icon' => 'fas fa-save',
+                                'icon' => 'bi bi-floppy',
                             ])
                         </div>
                     </div>

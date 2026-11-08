@@ -1,74 +1,82 @@
-<!-- resources/views/sistema/rutas/generador.blade.php -->
 @extends('adminlte::page')
 
-@section('title', 'Principal')
+@section('title', 'Generador de rutas')
+@section('plugins.Leaflet', true)
 
 @section('content_header')
-    <div class="d-flex justify-content-between align-items-center">
-        <h1 class="m-0 text-dark">Generador de rutas (HOY)</h1>
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <h1 class="m-0">Rutas de hoy</h1>
+        <button type="button" id="generar-ruta" class="btn btn-primary">
+            <i class="bi bi-signpost-split me-1"></i> Trazar ruta
+        </button>
     </div>
 @stop
 
 @section('content')
     @include('partials.aviso')
-    <section class="content">
-        <div id="map" style="height: 500px;"></div>
-    </section>
-@stop
-
-@section('css')
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <div class="card">
+        <div class="card-body p-0">
+            <div id="mapa" role="region" aria-label="Mapa de las entregas de hoy"></div>
+        </div>
+        <div class="card-footer small text-body-secondary">
+            {{ $entregas->count() }} entregas para hoy. La ruta se calcula con OSRM sobre OpenStreetMap.
+        </div>
+    </div>
 @stop
 
 @section('js')
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        // Inicializar el mapa
-        var map = L.map('map').setView([20.6600287, -103.3393025], 11);
+        $(function() {
+            const mapa = L.map('mapa').setView([20.6766, -103.3475], 12);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: '&copy; colaboradores de OpenStreetMap',
+            }).addTo(mapa);
 
-        // Añadir capa de OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-        }).addTo(map);
+            const texto = valor => $('<div>').text(valor ?? '').html();
+            const pesos = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' });
+            const puntos = [];
 
-        // Datos de las entregas
-        var entregas = @json($entregas);
-        var markers = [];
-        var waypoints = [];
+            @json($entregas).forEach(entrega => {
+                if (!entrega.latitud || !entrega.longitud) {
+                    return;
+                }
+                const punto = [Number(entrega.latitud), Number(entrega.longitud)];
+                L.marker(punto).addTo(mapa).bindPopup(
+                    `<b>${texto(entrega.punto_name)}</b><br>` +
+                    `Hora: ${texto((entrega.hora || '').slice(0, 5))}<br>` +
+                    `Estado: ${texto(entrega.status)}<br>` +
+                    `Cobrar: ${pesos.format(Number(entrega.cobrar_cliente) || 0)}`
+                );
+                puntos.push(punto);
+            });
 
-        entregas.forEach(function(entrega) {
-            if (entrega.latitud && entrega.longitud) {
-                var marker = L.marker([entrega.latitud, entrega.longitud]).addTo(map);
-                marker.bindPopup(`<b>${entrega.punto_name}</b><br>Status: ${entrega.status}<br>Cobrar: ${entrega.cobrar_cliente}<br>Costo: ${entrega.costo_entrega}`);
-                markers.push(marker);
-                waypoints.push([entrega.latitud, entrega.longitud]);
+            if (puntos.length) {
+                mapa.fitBounds(puntos, { padding: [40, 40], maxZoom: 15 });
             }
-        });
 
-        document.getElementById('generar-ruta').addEventListener('click', function() {
-            if (waypoints.length > 1) {
-                var coordinates = waypoints.map(function(coord) {
-                    return coord.reverse().join(',');
-                }).join(';');
-
-                var url = `http://router.project-osrm.org/route/v1/driving/${coordinates}?overview=full&geometries=geojson`;
-
-                axios.get(url)
-                    .then(function(response) {
-                        var route = response.data.routes[0];
-
-                        var routeCoords = L.geoJSON(route.geometry).getLayers()[0].getLatLngs();
-                        var polyline = L.polyline(routeCoords, {color: 'blue'}).addTo(map);
-
-                        map.fitBounds(polyline.getBounds());
-                    })
-                    .catch(function(error) {
-                        console.error(error);
-                    });
-            } else {
-                alert('Se necesitan al menos dos puntos para generar una ruta.');
-            }
+            let ruta = null;
+            $('#generar-ruta').on('click', async function() {
+                if (puntos.length < 2) {
+                    avisoErp('info', 'Se necesitan al menos dos entregas con ubicación para trazar la ruta.');
+                    return;
+                }
+                const coordenadas = puntos.map(([lat, lng]) => `${lng},${lat}`).join(';');
+                try {
+                    const respuesta = await fetch(`https://router.project-osrm.org/route/v1/driving/${coordenadas}?overview=full&geometries=geojson`);
+                    const datos = await respuesta.json();
+                    if (!datos.routes || !datos.routes.length) {
+                        throw new Error('sin ruta');
+                    }
+                    if (ruta) {
+                        ruta.remove();
+                    }
+                    ruta = L.geoJSON(datos.routes[0].geometry, { style: { color: '#0d6efd', weight: 5 } }).addTo(mapa);
+                    mapa.fitBounds(ruta.getBounds(), { padding: [30, 30] });
+                } catch (error) {
+                    avisoErp('error', 'No se pudo calcular la ruta. Intenta de nuevo en un momento.');
+                }
+            });
         });
     </script>
 @stop

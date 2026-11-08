@@ -3,7 +3,7 @@
 @section('title', 'Detalle de Movimiento')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Detalle de Movimiento</h1>
+    <h1 class="m-0">Detalle de Movimiento</h1>
 @stop
 
 @section('content')
@@ -13,19 +13,19 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group">
+                        <div class="mb-3">
                             <label for="almacen">Almacén:</label>
                             <input type="text" id="almacen" class="form-control" value="{{ $almacen->name }}" readonly>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <label for="socio">Socio:</label>
                             <input type="text" id="socio" class="form-control" value="{{ $socio->name }}" readonly>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <label for="fecha">Fecha:</label>
                             <input type="text" id="fecha" class="form-control" value="{{ $movimiento->created_at }}" readonly>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <label for="concepto">Concepto:</label>
                             <input type="text" id="concepto" class="form-control" value="{{ $tipo_movimiento->concepto }}" readonly>
                         </div>

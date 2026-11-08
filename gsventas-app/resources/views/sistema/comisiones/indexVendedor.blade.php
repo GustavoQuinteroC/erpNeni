@@ -1,184 +1,82 @@
 @extends('adminlte::page')
 
-@section('title', 'Principal')
+@section('title', 'Comisiones de vendedores')
 
 @section('content_header')
-    <div class="d-flex justify-content-between align-items-center">
-        <h1 class="m-0 text-dark">Comisiones vendedores por rango de fechas</h1>
-    </div>
+    <h1 class="m-0">Comisiones de vendedores por rango de fechas</h1>
 @stop
 
 @section('content')
     @include('partials.aviso')
-    <section class="content">
-        <div class="card">
-            <div id="dateRangeSlider"></div>
-            <div class="card-body">
-                <div style="text-align: center;">
-                    <p>Rango seleccionado: <span id="selectedRange"></span></p>
+    <div class="card">
+        <div class="card-body">
+            <form id="rango" class="row g-3 align-items-end mb-3">
+                <div class="col-sm-4 col-lg-3">
+                    <label for="fechaInicio" class="form-label">Desde</label>
+                    <input type="date" id="fechaInicio" class="form-control" value="{{ now()->subDays(60)->toDateString() }}">
                 </div>
-
-                <h4 id="totalComisiones" class="text-center"></h4> <!-- Muestra la suma -->
-                <div class="table-responsive">
-                    <table id="table1" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Estado</th>
-                                <th>Fecha venta</th>
-                                <th>Fecha entrega</th>
-                                <th>Cliente</th>
-                                <th>Comision</th>
-                            </tr>
-                        </thead>
-                    </table>
+                <div class="col-sm-4 col-lg-3">
+                    <label for="fechaFin" class="form-label">Hasta</label>
+                    <input type="date" id="fechaFin" class="form-control" value="{{ now()->toDateString() }}">
                 </div>
-            </div>
+                <div class="col-sm-4 col-lg-6 text-sm-end">
+                    <span class="text-body-secondary d-block small">Total de comisión (solo entregadas)</span>
+                    <span id="total" class="fs-4 fw-bold">$0.00</span>
+                </div>
+            </form>
+            <table id="table1" class="table table-striped w-100">
+                <thead>
+                    <tr>
+                        <th>Venta</th>
+                        <th>Estado</th>
+                        <th>Fecha de venta</th>
+                        <th>Fecha de entrega</th>
+                        <th>Cliente</th>
+                        <th>Comisión</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
-    </section>
-@stop
-
-@section('css')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.css" rel="stylesheet">
-    <style>
-        .bg-semiverde {
-            background-color: rgba(1, 97, 161, 0.164);
-            /* verde semitransparente */
-        }
-    </style>
+    </div>
 @stop
 
 @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.js"></script>
     <script>
-        $(document).ready(function() {
-            var dateRangeSlider = document.getElementById('dateRangeSlider');
-            var selectedRange = document.getElementById('selectedRange');
-            var fechaMinima = new Date();
-            fechaMinima.setDate(fechaMinima.getDate() - 60); // Restar 60 días
-            fechaMinima.setHours(0, 0, 0, 0); // Establecer a la medianoche para incluir el día completo
-            var fechaMaxima = new Date();
+        $(function() {
+            const pesos = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' });
+            const marca = (id, finDelDia) => {
+                const [a, m, d] = $(id).val().split('-').map(Number);
+                return new Date(a, m - 1, d, finDelDia ? 23 : 0, finDelDia ? 59 : 0).getTime();
+            };
 
-            noUiSlider.create(dateRangeSlider, {
-                start: [fechaMinima.getTime(), fechaMaxima.getTime()],
-                connect: true,
-                range: {
-                    'min': fechaMinima.getTime(),
-                    'max': fechaMaxima.getTime()
-                }
-            });
-
-            var timeoutId;
-
-            dateRangeSlider.noUiSlider.on('update', function(values) {
-                var fechaInicio = new Date(parseInt(values[0]));
-                var fechaFin = new Date(parseInt(values[1]));
-                selectedRange.textContent = fechaInicio.toLocaleDateString() + ' - ' + fechaFin
-                    .toLocaleDateString();
-
-                // Cancelar la solicitud anterior si existe
-                clearTimeout(timeoutId);
-
-                // Establecer un tiempo de espera antes de enviar la solicitud AJAX
-                timeoutId = setTimeout(function() {
-                    // Envía las fechas seleccionadas al servidor
-                    $.ajax({
-                        url: "{{ route('comisionesVendedor.index') }}",
-                        method: 'GET',
-                        data: {
-                            fechaInicio: fechaInicio.getTime(),
-                            fechaFin: fechaFin.getTime()
-                        },
-                        success: function(response) {
-                            // Actualiza la tabla con los nuevos datos
-                            $('#table1').DataTable().clear().rows.add(response.data)
-                                .draw();
-                            // Actualiza el total del costo de entrega
-                            $('#totalComisiones').text('TOTAL DE COMISION $' +
-                                response.totalComisiones).addClass('text-center');
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(error);
-                        }
-                    });
-                }, 500); // 500 milisegundos de espera (ajusta este valor según sea necesario)
-            });
-
-
-            $('#table1').DataTable({
-                processing: true,
-                serverSide: true,
+            const tabla = $('#table1').DataTable({
                 ajax: {
                     url: "{{ route('comisionesVendedor.index') }}",
-                    data: function(d) {
-                        var fechaInicio = new Date(parseInt(dateRangeSlider.noUiSlider.get()[0]));
-                        var fechaFin = new Date(parseInt(dateRangeSlider.noUiSlider.get()[1]));
-                        d.fechaInicio = fechaInicio.getTime();
-                        d.fechaFin = fechaFin.getTime();
-                    }
+                    data: d => Object.assign(d, { fechaInicio: marca('#fechaInicio'), fechaFin: marca('#fechaFin', true) }),
+                    dataSrc: respuesta => {
+                        $('#total').text(pesos.format(Number(respuesta.totalComisiones) || 0));
+                        return respuesta.data;
+                    },
                 },
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status',
-                    },
-                    {
-                        data: 'created_at',
-                        name: 'created_at',
-                        render: function(data, type, full, meta) {
-                            // Extraer solo la parte de la fecha
-                            var fecha = data.split('T')[0];
-                            return fecha;
-                        }
-                    },
-                    {
-                        data: 'fechaEntrega',
-                        name: 'fechaEntrega',
-                    },
-                    {
-                        data: 'socio',
-                        name: 'socio'
-                    },
-                    {
-                        data: 'comision',
-                        name: 'comision',
-                    },
+                columns: [
+                    { data: 'id' },
+                    { data: 'status' },
+                    { data: 'created_at', render: v => (v || '').split('T')[0] },
+                    { data: 'fechaEntrega' },
+                    { data: 'socio' },
+                    { data: 'comision', className: 'text-end', render: v => pesos.format(Number(v) || 0) },
                 ],
-                // Función para agregar clase condicional a las filas
-                createdRow: function(row, data, dataIndex) {
-                    if (data.status === 'Entregado') {
-                        $(row).addClass('bg-semiverde');
+                createdRow: (fila, datos) => {
+                    if (datos.status === 'Entregado') {
+                        $(fila).addClass('table-success');
                     }
                 },
-                // Configuración para el idioma español
-                language: {
-                    "url": "//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json"
-                },
-                // Configuración adicional para hacer la tabla responsiva y centrar el contenido
-                responsive: true,
-                autoWidth: false,
-                searching: false,
-                ordering: false,
-                paging: false,
-                info: false,
-                columnDefs: [{
-                        targets: [],
-                        className: 'text-left'
-                    }, // Alinear a la izquierda las columnas 1, 2 y 3
-                    {
-                        targets: [],
-                        className: 'text-right'
-                    }, // Alinear a la derecha las columnas 4 y 5
-                    {
-                        targets: '_all',
-                        className: 'text-center'
-                    } // Centrar el contenido de las demás columnas
-                ]
-
+                fixedColumns: false,
+                order: [],
+                pageLength: 25,
             });
+
+            $('#fechaInicio, #fechaFin').on('change', () => tabla.ajax.reload());
         });
     </script>
 @stop

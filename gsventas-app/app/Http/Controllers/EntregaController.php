@@ -36,15 +36,15 @@ class EntregaController extends Controller
                 ->addColumn('action', function ($row) {
                     $horaEntrega = Carbon::parse($row->hora)->format('h:i A'); // Convertir la hora a formato de 12 horas
                     $whatsappLink = 'https://wa.me/' . $row->telefono . '?text=' . urlencode('Hola ' . $row->socio . ', buen día. Soy el mensajero que le hará la entrega de su(s) smartwatch, me comunico para confirmar su entrega el día de hoy en ' . $row->clasificacion . ' - ' . $row->linea . ', estación ' . $row->punto_entrega . ' a las ' . $horaEntrega);
-                    $btnWhatsapp = '<a href="' . $whatsappLink . '" class="btn btn-xs btn-default text-success mx-1 shadow" title="Send WhatsApp">
-                             <i class="fa fa-lg fa-fw fa-comments"></i>
+                    $btnWhatsapp = '<a href="' . $whatsappLink . '" class="btn btn-sm btn-outline-secondary text-success mx-1" title="Send WhatsApp">
+                             <i class="bi bi-whatsapp"></i>
                              </a>';
                     $telLink = 'tel:' . $row->telefono;
-                    $btnPhone = '<a href="' . $telLink . '" class="btn btn-xs btn-default text-success mx-1 shadow" title="Call">
-                             <i class="fa fa-lg fa-fw fa-phone"></i>
+                    $btnPhone = '<a href="' . $telLink . '" class="btn btn-sm btn-outline-secondary text-success mx-1" title="Call">
+                             <i class="bi bi-telephone"></i>
                              </a>';
-                    $btnEdit = '<a href="' . route('entregas.edit', $row->id) . '" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                             <i class="fa fa-lg fa-fw fa-pen"></i>
+                    $btnEdit = '<a href="' . route('entregas.edit', $row->id) . '" class="btn btn-sm btn-outline-secondary text-primary mx-1" title="Edit">
+                             <i class="bi bi-pencil"></i>
                              </a>';
                     return $btnWhatsapp . $btnPhone . $btnEdit;
                 })
@@ -71,15 +71,15 @@ class EntregaController extends Controller
                 ->addColumn('action', function ($row) {
                     $horaEntrega = Carbon::parse($row->hora)->format('h:i A'); // Convertir la hora a formato de 12 horas
                     $whatsappLink = 'https://wa.me/' . $row->telefono . '?text=' . urlencode('Hola ' . $row->socio . ', buen día. Soy el mensajero que le hará la entrega de su(s) smartwatch, me comunico para confirmar su entrega el día de hoy en ' . $row->clasificacion . ' - ' . $row->linea . ', estación ' . $row->punto_entrega . ' a las ' . $horaEntrega);
-                    $btnWhatsapp = '<a href="' . $whatsappLink . '" class="btn btn-xs btn-default text-success mx-1 shadow" title="Send WhatsApp">
-                             <i class="fa fa-lg fa-fw fa-comments"></i>
+                    $btnWhatsapp = '<a href="' . $whatsappLink . '" class="btn btn-sm btn-outline-secondary text-success mx-1" title="Send WhatsApp">
+                             <i class="bi bi-whatsapp"></i>
                              </a>';
                     $telLink = 'tel:' . $row->telefono;
-                    $btnPhone = '<a href="' . $telLink . '" class="btn btn-xs btn-default text-success mx-1 shadow" title="Call">
-                             <i class="fa fa-lg fa-fw fa-phone"></i>
+                    $btnPhone = '<a href="' . $telLink . '" class="btn btn-sm btn-outline-secondary text-success mx-1" title="Call">
+                             <i class="bi bi-telephone"></i>
                              </a>';
-                    $btnEdit = '<a href="' . route('entregas.edit', $row->id) . '" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                             <i class="fa fa-lg fa-fw fa-pen"></i>
+                    $btnEdit = '<a href="' . route('entregas.edit', $row->id) . '" class="btn btn-sm btn-outline-secondary text-primary mx-1" title="Edit">
+                             <i class="bi bi-pencil"></i>
                              </a>';
                     return $btnWhatsapp . $btnPhone . $btnEdit;
                 })
@@ -105,15 +105,15 @@ class EntregaController extends Controller
                 ->addColumn('action', function ($row) {
                     $horaEntrega = Carbon::parse($row->hora)->format('h:i A'); // Convertir la hora a formato de 12 horas
                     $whatsappLink = 'https://wa.me/' . $row->telefono . '?text=' . urlencode('Hola ' . $row->socio . ', buen día. Soy el mensajero que le hará la entrega de su(s) smartwatch, me comunico para confirmar su entrega el día de hoy en ' . $row->clasificacion . ' - ' . $row->linea . ', estación ' . $row->punto_entrega . ' a las ' . $horaEntrega);
-                    $btnWhatsapp = '<a href="' . $whatsappLink . '" class="btn btn-xs btn-default text-success mx-1 shadow" title="Send WhatsApp">
-                             <i class="fa fa-lg fa-fw fa-comments"></i>
+                    $btnWhatsapp = '<a href="' . $whatsappLink . '" class="btn btn-sm btn-outline-secondary text-success mx-1" title="Send WhatsApp">
+                             <i class="bi bi-whatsapp"></i>
                              </a>';
                     $telLink = 'tel:' . $row->telefono;
-                    $btnPhone = '<a href="' . $telLink . '" class="btn btn-xs btn-default text-success mx-1 shadow" title="Call">
-                             <i class="fa fa-lg fa-fw fa-phone"></i>
+                    $btnPhone = '<a href="' . $telLink . '" class="btn btn-sm btn-outline-secondary text-success mx-1" title="Call">
+                             <i class="bi bi-telephone"></i>
                              </a>';
-                    $btnEdit = '<a href="' . route('entregas.edit', $row->id) . '" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                             <i class="fa fa-lg fa-fw fa-pen"></i>
+                    $btnEdit = '<a href="' . route('entregas.edit', $row->id) . '" class="btn btn-sm btn-outline-secondary text-primary mx-1" title="Edit">
+                             <i class="bi bi-pencil"></i>
                              </a>';
                     return $btnWhatsapp . $btnPhone . $btnEdit;
                 })
