@@ -108,7 +108,6 @@
                         'searching' => false,
                         'info' => false,
                         'ordering' => false,
-                        'language' => ['url' => '//cdn.datatables.net/plug-ins/2.3.8/i18n/es-ES.json'],
                         'columnDefs' => [
                             ['width' => '20%', 'targets' => 1],
                             ['width' => '60%', 'targets' => 2],

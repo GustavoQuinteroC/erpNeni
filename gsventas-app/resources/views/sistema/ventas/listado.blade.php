@@ -82,10 +82,6 @@
                         searchable: false
                     },
                 ],
-                // Configuración para el idioma español
-                language: {
-                    "url": "//cdn.datatables.net/plug-ins/2.3.8/i18n/es-ES.json"
-                },
                 // Configuración adicional para hacer la tabla responsiva y centrar el contenido
                 autoWidth: false,
                 columnDefs: [{
