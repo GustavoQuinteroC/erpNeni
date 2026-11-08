@@ -8,8 +8,6 @@ use App\Models\Producto;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-//use App\Http\Requests\StoreMovimientoRequest;
-//use App\Http\Requests\UpdateMovimientoRequest;
 
 class InventarioController extends Controller
 {

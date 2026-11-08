@@ -10,6 +10,7 @@
 @stop
 
 @section('content')
+    @include('partials.aviso')
     <section class="content">
         <div class="card">
             <div class="card-body">

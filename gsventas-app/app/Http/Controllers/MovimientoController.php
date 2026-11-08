@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Movimiento;
 use App\Models\Movimientos_producto;
-use App\Http\Requests\StoreMovimientoRequest;
-use App\Http\Requests\UpdateMovimientoRequest;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\Almacene;
@@ -43,21 +41,7 @@ class MovimientoController extends Controller
 
 
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreMovimientoRequest $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -83,27 +67,6 @@ class MovimientoController extends Controller
     }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Movimiento $movimiento)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateMovimientoRequest $request, Movimiento $movimiento)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Movimiento $movimiento)
-    {
-        //
-    }
 }

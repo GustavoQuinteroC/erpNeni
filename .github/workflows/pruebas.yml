@@ -1,0 +1,51 @@
+name: Pruebas
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: gsventas-app
+
+jobs:
+  phpunit:
+    name: PHPUnit (PHP ${{ matrix.php }}, MariaDB)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.4', '8.5']
+    services:
+      mariadb:
+        image: mariadb:12
+        env:
+          MARIADB_DATABASE: erp_neni
+          MARIADB_USER: app_erp_neni
+          MARIADB_PASSWORD: solo-para-ci
+          MARIADB_RANDOM_ROOT_PASSWORD: '1'
+        ports: ['3306:3306']
+        options: --health-cmd="healthcheck.sh --connect --innodb_initialized" --health-interval=5s --health-retries=20
+    env:
+      DB_HOST: 127.0.0.1
+      DB_USERNAME: app_erp_neni
+      DB_PASSWORD: solo-para-ci
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, pdo_mysql, intl, bcmath
+          coverage: none
+      - run: composer install --no-interaction --no-progress --prefer-dist
+      - run: vendor/bin/phpunit --display-warnings --display-deprecations
+      - name: Guardar composer.lock
+        if: matrix.php == '8.5'
+        uses: actions/upload-artifact@v4
+        with:
+          name: composer-lock
+          path: gsventas-app/composer.lock

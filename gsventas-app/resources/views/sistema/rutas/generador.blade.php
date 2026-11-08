@@ -10,6 +10,7 @@
 @stop
 
 @section('content')
+    @include('partials.aviso')
     <section class="content">
         <div id="map" style="height: 500px;"></div>
     </section>

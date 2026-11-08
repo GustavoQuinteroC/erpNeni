@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\user;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
@@ -46,16 +46,16 @@ class UsuarioController extends Controller
     public function store(StoreUsuarioRequest $request)
     {
         $validacion = $request->validate([
-            'name' => 'required|string|max:100',
+            'name' => 'required|string|max:100|unique:users,name',
             'email' => 'required|email|unique:users,email|max:100',
             'telefono' => 'required|numeric|min:1000000001|max:999999999999999',
             'ine' => 'nullable|string|max:20',
             'rfc' => 'nullable|string|max:25',
             'domicilio' => 'nullable|string|max:100',
-            'password' => 'required|string|min:7|max:200,',
+            'password' => 'required|string|min:7|max:200',
 
         ]);
-        $usuario = new user();
+        $usuario = new User();
 
         $usuario->name = $request->input('name');
         $usuario->email = $request->input('email');
@@ -72,7 +72,7 @@ class UsuarioController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(user $usuario)
+    public function show(User $usuario)
     {
         //
     }
@@ -82,7 +82,7 @@ class UsuarioController extends Controller
      */
     public function edit(string $id)
     {
-        $usuario = user::find($id);
+        $usuario = User::find($id);
 
         return view('sistema.usuarios.consulta', compact('usuario'));
     }
@@ -93,12 +93,12 @@ class UsuarioController extends Controller
     public function update(UpdateUsuarioRequest $request, User $usuario)
     {
         $validacion = $request->validate([
-            'name' => 'required|string|max:100|unique:socios,name,' . $usuario->id,
+            'name' => 'required|string|max:100|unique:users,name,' . $usuario->id,
             'email' => 'required|email|max:100|unique:users,email,' . $usuario->id,
             'telefono' => 'required|numeric|min:1000000001|max:999999999999999|unique:users,telefono,' . $usuario->id,
             'ine' => 'nullable|string|max:20|unique:users,ine,' . $usuario->id,
             'rfc' => 'nullable|string|max:25|unique:users,rfc,' . $usuario->id,
-            'domicilio' => 'nullable|string|max:100|unique:users,domicilio,' . $usuario->id,
+            'domicilio' => 'nullable|string|max:100',
             'password' => 'nullable|string|min:7|max:200', // Quitamos la requerida de la contraseña
 
         ]);
@@ -115,7 +115,7 @@ class UsuarioController extends Controller
 
         // Verificar si se proporcionó una nueva contraseña
         if ($request->filled('password')) {
-            $datosActualizados['password'] = bcrypt($request->input('password'));
+            $datosActualizados['password'] = $request->input('password');
         }
 
         // Actualizar el usuario con los datos preparados
@@ -129,7 +129,7 @@ class UsuarioController extends Controller
      * Remove the specified resource from storage.
      */
 
-     public function destroy(user $usuario)
+     public function destroy(User $usuario)
     {
         $usuario->delete();
         

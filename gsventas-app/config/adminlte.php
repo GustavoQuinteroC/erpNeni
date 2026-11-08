@@ -15,7 +15,7 @@ return [
     */
 
     'title' => '',
-    'title_prefix' => 'Ventas GS | ',
+    'title_prefix' => 'ERP Neni | ',
     'title_postfix' => '',
 
     /*
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>VENTAS</b> GS',
+    'logo' => '<b>ERP</b> Neni',
     'logo_img' => 'vendor/adminlte/dist/img/Logo.png',
     //'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
@@ -254,12 +254,12 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
-    'register_url' => 'register',
-    'password_reset_url' => 'password/reset',
-    'password_email_url' => 'password/email',
+    'register_url' => false,
+    'password_reset_url' => false,
+    'password_email_url' => false,
     'profile_url' => false,
 
     /*
@@ -306,17 +306,6 @@ return [
         [
             'type' => 'sidebar-menu-search',
             'text' => 'Buscar',
-        ],
-        [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
-        [
-            'text' => 'Pagina',
-            'url' => 'https://redgq.uk',
-            'icon' => 'far fa-fw fa-solid fa-earth-americas',
-            'label_color' => 'success',
         ],
         ['header' => 'Administracion de la tienda'],
         [

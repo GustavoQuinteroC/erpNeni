@@ -11,6 +11,7 @@
 @stop
 
 @section('content')
+    @include('partials.aviso')
     <section class="content">
         <div class="card">
             @if (session()->has('guardado') && session('guardado') == 'ok')

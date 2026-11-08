@@ -1,12 +1,12 @@
-# Usamos una imagen base con Apache y PHP 8.3
-FROM php:8.3-apache
+# Usamos una imagen base con Apache y PHP 8.5
+FROM php:8.5-apache
 
 # Instalamos las extensiones necesarias para Laravel
 RUN apt-get update && apt-get install -y \
     libpng-dev libjpeg-dev libfreetype6-dev \
     unzip curl git zip libonig-dev libxml2-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql mbstring xml \
+    && docker-php-ext-install gd pdo pdo_mysql \
     && a2enmod rewrite
 
 # Copiar archivo de configuración personalizada de Apache

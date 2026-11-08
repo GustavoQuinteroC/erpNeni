@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\user;
+use App\Models\User;
 
 class PerfilController extends Controller
 {
@@ -12,7 +12,7 @@ class PerfilController extends Controller
      */
     public function index()
     {
-        $usuario = user::find(Auth::id());
+        $usuario = User::find(Auth::id());
         return view('sistema.perfil.consulta', compact('usuario'));
     }
 

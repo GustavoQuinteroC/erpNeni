@@ -1,8 +1,8 @@
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
-  	<title>Inicio de sesion</title>
+  	<title>ERP Neni | Iniciar sesión</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -10,29 +10,37 @@
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	
-	<link rel="stylesheet" href="assets/styles/login.css">
+	<link rel="stylesheet" href="{{ asset('assets/styles/login.css') }}">
 
 	</head>
-	<body class="img js-fullheight" style="background-image: url(assets/src/banner_login.jpg);">
+	<body class="img js-fullheight" style="background-image: url({{ asset('assets/src/banner_login.jpg') }});">
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">GS VENTAS</h2>
+					<h2 class="heading-section">ERP Neni</h2>
 				</div>
 			</div>
 			<div class="row justify-content-center">
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
 		      	<h3 class="mb-4 text-center">Ingresa a tu cuenta</h3>
+				@if ($errors->any())
+					<div class="alert alert-danger" role="alert">{{ $errors->first() }}</div>
+				@endif
+				<div class="alert alert-light" role="note">
+					<strong>Demo de solo lectura</strong><br>
+					Correo: {{ $demo['correo'] }}<br>
+					Contraseña: {{ $demo['clave'] }}
+				</div>
 
 		      	<form action="{{route('login')}}" class="signin-form" method="post">
                     @csrf
 		      		<div class="form-group">
-		      			<input type="text" class="form-control" placeholder="Usuario" name="email" required>
+		      			<input type="email" class="form-control" placeholder="Correo" name="email" value="{{ old('email') }}" autocomplete="username" required autofocus>
 		      		</div>
 	            <div class="form-group">
-	              <input id="password-field" type="password" class="form-control" placeholder="Contraseña" name="password" parequired>
+	              <input id="password-field" type="password" class="form-control" placeholder="Contraseña" name="password" autocomplete="current-password" required>
 	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 	            </div>
 	            <div class="form-group">
@@ -41,12 +49,9 @@
 	            <div class="form-group d-md-flex">
 	            	<div class="w-50">
 		            	<label class="checkbox-wrap checkbox-primary">Recuerdame
-									  <input type="checkbox" checked>
+									  <input type="checkbox" name="remember" value="1">
 									  <span class="checkmark"></span>
 									</label>
-								</div>
-								<div class="w-50 text-md-right">
-									<a href="#" style="color: #fff">Olvide mi contraseña</a>
 								</div>
 	            </div>
 	          </form>
@@ -56,10 +61,10 @@
 		</div>
 	</section>
 
-  <script src="assets/js/jquery.min.js"></script>
-  <script src="assets/js/popper.js"></script>
-  <script src="assets/js/bootstrap.min.js"></script>
-  <script src="assets/js/main.js"></script>
+  <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+  <script src="{{ asset('assets/js/popper.js') }}"></script>
+  <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('assets/js/main.js') }}"></script>
 
 	</body>
 </html>

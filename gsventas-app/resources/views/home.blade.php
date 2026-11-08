@@ -7,6 +7,7 @@
 @stop
 
 @section('content')
+    @include('partials.aviso')
     <section class="content">
         <div class="container-fluid">
             <div class="row">

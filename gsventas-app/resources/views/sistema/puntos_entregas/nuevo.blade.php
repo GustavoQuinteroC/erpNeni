@@ -7,6 +7,7 @@
 @stop
 
 @section('content')
+    @include('partials.aviso')
     <section class="content">
         <p>Ingrese la información del producto</p>
         <div class="card">

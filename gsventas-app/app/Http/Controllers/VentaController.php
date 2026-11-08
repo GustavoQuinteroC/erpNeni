@@ -6,6 +6,7 @@ use App\Models\Venta;
 use App\Models\Socio;
 use App\Models\User;
 use App\Models\Almacene;
+use App\Models\Almacen_producto;
 use App\Models\Ventas_producto;
 use App\Models\Puntos_entrega;
 use App\Models\Entrega;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreVentaRequest;
 use App\Http\Requests\UpdateVentaRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
 class VentaController extends Controller
@@ -84,6 +86,9 @@ class VentaController extends Controller
             'nombre_cliente' => 'required|string',
             'nombre_punto' => 'required',
             'nombre_usuario' => 'required',
+            'idusuario' => 'required|exists:users,id',
+            'idsocio' => 'nullable|exists:socios,id',
+            'productos_seleccionados' => 'required|json',
             'costo_entrega' => 'required',
             'idpunto_entrega' => 'required|exists:puntos_entregas,id',
             'fecha' => 'required|date|after_or_equal:today',
@@ -94,71 +99,74 @@ class VentaController extends Controller
         ]);
 
 
-        if (is_null($request->idsocio)) {
-            $cliente = new Socio();
-            $cliente->name = $request->nombre_cliente;
-            $cliente->telefono = $request->telefono;
-            $cliente->tipo = 'cliente';
-            $cliente->save();
-            $idcliente = $cliente->id;
-        } else {
-            $idcliente = $request->idsocio;
-        }
+        $productosSeleccionados = $this->partidas($request->input('productos_seleccionados'), 'precio');
 
-        $entrega = new Entrega();
-        $entrega->idusuario = $request->idusuario;
-        $entrega->idpunto_entrega = $request->idpunto_entrega;
-        $entrega->idsocio = $idcliente;
-        $entrega->fecha = $request->fecha;
-        $entrega->hora = $request->hora;
-        $entrega->notas = '';
-        $entrega->cobrar_cliente = $request->total_hidden;
-        $entrega->costo_entrega = $request->costo_entrega;
-        $entrega->save();
+        DB::transaction(function () use ($request, $productosSeleccionados) {
+            if (is_null($request->idsocio)) {
+                $cliente = new Socio();
+                $cliente->name = $request->nombre_cliente;
+                $cliente->telefono = $request->telefono;
+                $cliente->tipo = 'cliente';
+                $cliente->save();
+                $idcliente = $cliente->id;
+            } else {
+                $idcliente = $request->idsocio;
+            }
 
-        $venta = new Venta();
-        $venta->idsocio = $idcliente;
-        $venta->idalmacen = $request->idalmacen;
-        $venta->identrega = $entrega->id;
-        $venta->notas = $request->notas_entrega;
-        $venta->idusuario = Auth::id();
-        $venta->forma_pago = $request->forma_pago;
-        $venta->cuenta_pago = $request->cuenta_pago;
-        $venta->total = $request->total_hidden;
-        $venta->save();
+            $entrega = new Entrega();
+            $entrega->idusuario = $request->idusuario;
+            $entrega->idpunto_entrega = $request->idpunto_entrega;
+            $entrega->idsocio = $idcliente;
+            $entrega->fecha = $request->fecha;
+            $entrega->hora = $request->hora;
+            $entrega->notas = '';
+            $entrega->cobrar_cliente = $request->total_hidden;
+            $entrega->costo_entrega = $request->costo_entrega;
+            $entrega->save();
 
-        // Crear el movimiento de almacen
-        $movimiento = new Movimiento();
-        $movimiento->idsocio = $idcliente;
-        $movimiento->idalmacen = $request->idalmacen;
-        $movimiento->idusuario = Auth::id();
-        $movimiento->idtipo = 2;
-        $movimiento->referencia = '';
-        $movimiento->notas = $request->notas;
-        $movimiento->save();
+            $venta = new Venta();
+            $venta->idsocio = $idcliente;
+            $venta->idalmacen = $request->idalmacen;
+            $venta->identrega = $entrega->id;
+            $venta->notas = $request->notas_entrega;
+            $venta->idusuario = Auth::id();
+            $venta->forma_pago = $request->forma_pago;
+            $venta->cuenta_pago = $request->cuenta_pago;
+            $venta->total = $request->total_hidden;
+            $venta->save();
+            $venta->folio = 'V'.str_pad((string) $venta->id, 5, '0', STR_PAD_LEFT);
+            $venta->save();
 
+            // Crear el movimiento de almacén
+            $movimiento = new Movimiento();
+            $movimiento->idsocio = $idcliente;
+            $movimiento->idalmacen = $request->idalmacen;
+            $movimiento->idusuario = Auth::id();
+            $movimiento->idtipo = 2;
+            $movimiento->referencia = $venta->folio;
+            $movimiento->notas = $request->notas;
+            $movimiento->save();
 
-        $productosSeleccionados = json_decode($request->productos_seleccionados, true);
-        foreach ($productosSeleccionados as $producto) {
-            // Guardar los productos seleccionados en la tabla recepciones_productos
-            $ventaProducto = new Ventas_producto();
-            $ventaProducto->idproducto = $producto['id'];
-            $ventaProducto->preciou = $producto['precio'];
-            $ventaProducto->cantidad = $producto['cantidad'];
-            $ventaProducto->idventa = $venta->id;
-            $ventaProducto->desc_porcentaje = 0;
-            $ventaProducto->save();
+            foreach ($productosSeleccionados as $producto) {
+                $ventaProducto = new Ventas_producto();
+                $ventaProducto->idproducto = $producto['id'];
+                $ventaProducto->preciou = $producto['precio'];
+                $ventaProducto->cantidad = $producto['cantidad'];
+                $ventaProducto->idventa = $venta->id;
+                $ventaProducto->desc_porcentaje = 0;
+                $ventaProducto->save();
 
-            // Guardar los productos seleccionados en la tabla movimientos_producto
-            $mov_pda = new Movimientos_producto();
-            $mov_pda->idmovimiento = $movimiento->id;
-            $mov_pda->idproducto = $producto['id'];
-            $mov_pda->cantidad = $producto['cantidad'];
-            $mov_pda->tabla_ref = 'ventas_productos';
-            $mov_pda->idtabla_ref = $ventaProducto->id;
-            $mov_pda->save();
-        }
+                $mov_pda = new Movimientos_producto();
+                $mov_pda->idmovimiento = $movimiento->id;
+                $mov_pda->idproducto = $producto['id'];
+                $mov_pda->cantidad = $producto['cantidad'];
+                $mov_pda->tabla_ref = 'ventas_productos';
+                $mov_pda->idtabla_ref = $ventaProducto->id;
+                $mov_pda->save();
 
+                Almacen_producto::ajustarExistencia((int) $request->idalmacen, (int) $producto['id'], -(int) $producto['cantidad']);
+            }
+        });
 
         // Mostrar un mensaje de éxito
         return back()->with('message', 'ok');
@@ -179,7 +187,7 @@ class VentaController extends Controller
         // Obtener el concepto asociado al movimiento
         $entrega = Entrega::find($venta->identrega);
         // Obtener el concepto asociado al movimiento
-        $punto_entrega = Puntos_entrega::find($venta->identrega);
+        $punto_entrega = $entrega ? Puntos_entrega::find($entrega->idpunto_entrega) : null;
         // Obtener el concepto asociado al movimiento
         $usuario = User::find($venta->idusuario);
         // Obtener el concepto asociado al movimiento
